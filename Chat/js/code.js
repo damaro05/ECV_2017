@@ -3,6 +3,7 @@
 
 var room_name = "ADSM";
 var timer = null;
+var reconnect = true;
 
 //connect to the server
 var server = new SillyClient();
@@ -24,10 +25,19 @@ server.on_message = function( author_id, msg ){
 //this methods is called when a new user is connected
 server.on_user_connected = function(msg){
 	//new user!
+	//Lista de usuarios en el room y poder seleccionar uno para enviar mensaje/chat privado
 }
 
 server.on_close = function(){
+	//time 5s y reconectar
 	//this methods is called when the server gets closed (its shutdown)
+	
+	if( reconnect ){
+		//Div de reconectando en 3..2..1..
+		setTimeout(function(){
+			server.connect("84.89.136.194:9000", room_name);
+		}, 3000);
+	}
 };
 
 
@@ -87,6 +97,25 @@ var data = JSON.parse( str );
 var m2 = new Message();
 m2.fromJSON(data);*/
 
+function addMsgs( username, text ){
+	var msg = document.createElement("p");
+	msg.className = "msg";
+	//setTimeOut(function(){ msg.classList.add("visible"); },10);
+	msg.innerHTML = "<span class='username'>" + usr.name + ": </span>";
+	
+	var span = document.createElement("span");
+	span.innerText = text;
+	span.clasName = "text";
+	msg.appendChild( span );
+	
+	var msgs = document.querySelector("#msgs");
+	//Add message in msgs box
+	msgs.appendChild( msg );
+	//Auto scroll when user send a message
+	msgs.scrollTop = msgs.scrollHeight;
+
+}
+
 function sendMsg(){
 	var input = document.querySelector("#chatinput");
 	var text = input.value;
@@ -94,21 +123,7 @@ function sendMsg(){
 	input.focus();
 	
 	if(text.trim().length != 0){
-		var msg = document.createElement("p");
-		msg.className = "msg";
-		//setTimeOut(function(){ msg.classList.add("visible"); },10);
-		msg.innerHTML = "<span class='username'>" + usr.name + ": </span>";
-		
-		var span = document.createElement("span");
-		span.innerText = text;
-		span.clasName = "text";
-		msg.appendChild( span );
-		
-		var msgs = document.querySelector("#msgs");
-		//Add message in msgs box
-		msgs.appendChild( msg );
-		//Auto scroll when user send a message
-		msgs.scrollTop = msgs.scrollHeight;
+		addMsgs( usr.name, text );
 		
 		var d = new Date();
 		var m = new Message( usr );
@@ -129,20 +144,13 @@ function receiveMsg( message ){
 	var m = new Message();
 	m.fromJSON( JSON.parse(message) );
 	
-	var msg = document.createElement("p");
-	msg.className = "msg";
-	//setTimeOut(function(){ msg.classList.add("visible"); },10);
-	msg.innerHTML = "<span class='username'>" + m.u_name + ": </span>";
-	
-	var span = document.createElement("span");
-	//span.innerText = JSON.parse(message);
-	span.innerText = m.text;
-	span.clasName = "text";
-	msg.appendChild( span );
-	
-	var msgs = document.querySelector("#msgs");
-	//Add message in msgs box
-	msgs.appendChild( msg );
-	//Auto scroll when user send a message
-	msgs.scrollTop = msgs.scrollHeight;
+	addMsgs( m.u_name, m.text );
 }
+
+function logOut(){
+	reconnect = false;
+}
+
+/*window.onbeforeunload = function(e) {
+	logOut();
+}*/

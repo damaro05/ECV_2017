@@ -92,3 +92,21 @@ p.msg{
 p.footer_text{
 	font-size: x-small;
 }
+
+/*
+#chat{
+	display:none;
+}
+.visible{
+	display: block !important;
+}
+
+element.classList.add('_');
+element.display.visible;
+
+//cloning element
+return all the content 'element.innerHTML'
+element2 = createElement('div');
+element2.innerHTML = element;
+
+*/
