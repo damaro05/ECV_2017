@@ -1,0 +1,94 @@
+*{
+	padding: 0;
+	margin: 0;
+}
+body{
+	#background-image: url("../img/blue_gradient.png");
+}
+p.msg{
+	background-color:green;
+	margin: 0px 0px 2px 0px;
+	padding-left: 4px;
+	padding-right: 4px;
+}
+
+#main{
+	#display: none;
+	width: 100%;
+	height:100%;
+	text-align: center;
+}
+
+#header{
+	background-color: blue;
+	min-height: 40px;
+	height: 8%;
+	padding: 0px 5px 0px 5px;
+}
+#menu{
+	background-color: gray;
+	min-height: 30px;
+	height: 90%;
+	width: 18%;
+	float: left;
+	margin-right: 2px;
+	position:relative;
+	top:5%;
+}
+#room{
+	background-color: green;
+	min-height: 30px;
+	height: 90%;
+	float: none;
+	overflow: hidden;
+    top: 5%;
+    position: relative;
+}
+
+#content{
+	width: 99%;
+	height: 88%;
+	background-color:white;
+	display: inline-block;
+	padding: 3px 5px 3px 5px;
+}
+#left{
+	background-color: orange;
+	min-height: 300px;
+	height: 100%;
+	min-width: 220px;
+	width: 30%;
+	float: left;
+	margin-right: 2px;
+	position:relative;
+	#top:5%;
+}
+#msgs{
+	width: 100%;
+	height: 88%;
+	background-color: gray;
+	margin-bottom: 2px;
+	text-align: left;
+	vertical-align:top;
+	overflow-y: auto;
+}
+#writer{
+	height: 12%;
+	padding: 2px 3px 2px 3px;
+}
+#chatinput{
+	height: 85%;
+	width: 70%;
+}
+.mini{
+	min-width: 50px;
+	min-height: 20px;
+	height: 85%
+}
+
+#footer{
+	background-color: yellow;
+}
+p.footer_text{
+	font-size: x-small;
+}
