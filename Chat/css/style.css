@@ -3,7 +3,7 @@
 	margin: 0;
 }
 body{
-	#background-image: url("../img/blue_gradient.png");
+	font-family: Verdana, Geneva, sans-serif;
 }
 p.msg{
 	background-color:green;
@@ -11,83 +11,157 @@ p.msg{
 	padding-left: 4px;
 	padding-right: 4px;
 }
+.left{
+	float: left;
+}
 
 #main{
 	#display: none;
 	width: 100%;
 	height:100%;
+	#text-align: center;
+}
+
+
+#admin{
+	background-color: black;
+	height: 100%;
+	width: 26%;
+	min-width: 300px;
+}
+
+
+#header{
+	height: 40px;
+	vertical-align: middle;
+}
+#header div{
+	display: table;
+}
+#header span{
+	vertical-align: middle;
+	display: table-cell;
+}
+#header img{
+	vertical-align: middle;
+	display: table-cell;
+	margin-left: 10px;
+}
+
+
+#menu{
+	color: white;
+	height: 100%;
+	width: 62%;
+	float: left;
+	position:relative;
+}
+#menu:hover{
+	background-color:gray;
+}
+
+#room{
+	color: white;
+	height: 100%;
+	width: 38%;
+	float: none;
+    position: relative;
+}
+#room:hover{
+	background-color:gray;
+}
+
+
+#content{
+	width: 100%;
+	height: 90%;
+	background-color:white;
+	display: inline-block;
+}
+
+
+#left{
+	background-color: #ff9900;
+	min-height: 300px;
+	height: 100%;
+	width: 64px;
+	float: left;
+	position:relative;
+	font-size: x-small;
 	text-align: center;
 }
 
-#header{
-	background-color: blue;
-	min-height: 40px;
-	height: 8%;
-	padding: 0px 5px 0px 5px;
+
+.hidden-scrollbar{
+	overflow:hidden;
 }
-#menu{
-	background-color: gray;
-	min-height: 30px;
-	height: 90%;
-	width: 18%;
-	float: left;
-	margin-right: 2px;
-	position:relative;
-	top:5%;
-}
-#room{
-	background-color: green;
-	min-height: 30px;
-	height: 90%;
-	float: none;
-	overflow: hidden;
-    top: 5%;
-    position: relative;
+.hidden-scrollbar .openchats {
+	height:100%;
+	overflow-y:scroll;
+	overflow-x:hidden;
+	margin:0px -292px 0px 0px;
+	padding-right:274px;
 }
 
-#content{
-	width: 99%;
-	height: 88%;
-	background-color:white;
-	display: inline-block;
-	padding: 3px 5px 3px 5px;
+.chat{
+	border-bottom: 1px solid #ffebcc;
+	padding-top: 2px;
 }
-#left{
-	background-color: orange;
+.chat:hover{
+	background-color: #804d00;
+	color: white;
+}
+
+.avatar{
+	width: 25px;
+	height: 25px;
+	margin:auto;
+	
+	background-repeat: no-repeat;
+    background-position: 50%;
+    border-radius: 50%;
+    background-size: 100% auto;
+}
+
+
+#right{
 	min-height: 300px;
 	height: 100%;
-	min-width: 220px;
-	width: 30%;
-	float: left;
-	margin-right: 2px;
-	position:relative;
-	#top:5%;
+	float: none;
+	font-size: small;
+	border-right: 1px solid #e0e0d1;
 }
+
+
 #msgs{
-	width: 100%;
 	height: 88%;
-	background-color: gray;
-	margin-bottom: 2px;
 	text-align: left;
 	vertical-align:top;
 	overflow-y: auto;
 }
 #writer{
 	height: 12%;
-	padding: 2px 3px 2px 3px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	border-top: 1px solid #e0e0d1;
 }
 #chatinput{
-	height: 85%;
-	width: 70%;
+	height: 90%;
+	width: 72%;
+	margin-right: 4px;
 }
 .mini{
 	min-width: 50px;
+	width: 24%;
 	min-height: 20px;
-	height: 85%
+	height: 90%
 }
 
 #footer{
-	background-color: yellow;
+	padding-top: 3px;
+	text-align:center;
+	color: white;
 }
 p.footer_text{
 	font-size: x-small;
