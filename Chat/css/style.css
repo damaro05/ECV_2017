@@ -115,12 +115,18 @@ p.msg{
 .avatar{
 	width: 25px;
 	height: 25px;
-	margin:auto;
 	
 	background-repeat: no-repeat;
     background-position: 50%;
     border-radius: 50%;
     background-size: 100% auto;
+}
+.avatar2{
+	margin:auto;
+}
+.avatar3{
+	float:left;
+	margin: 3px 5px 0px 3px;
 }
 
 
@@ -139,6 +145,49 @@ p.msg{
 	vertical-align:top;
 	overflow-y: auto;
 }
+
+.msg{
+	min-height: 35px;
+	width: 95%;
+	margin: 0px 5px 2px 5px;
+	padding: 1px 2px 1px 2px;
+	border-top-left-radius: 6px 3px;
+	border-top-right-radius: 6px 3px;
+	border-bottom-left-radius: 6px 3px;
+	border-bottom-right-radius: 6px 3px;
+}
+.msg-info{
+	text-align: justify;
+}
+.msg-username{
+	width: 50%;
+    vertical-align: top;
+    display: inline-block;
+    *display: inline;
+	font-size:xx-small;
+	border-bottom: 1px solid black;
+}
+.msg-date{
+	width: 30%;
+    vertical-align: top;
+    display: inline-block;
+    *display: inline;
+	font-size:xx-small;
+	text-align:right;
+}
+.msg-text{
+    font-size: small;
+	padding: 0px 2px 2px 2px;
+}
+
+.rcv{
+	background-color:gray;
+}
+.snd{
+	background-color:green;
+}
+
+
 #writer{
 	height: 12%;
 	display: flex;
@@ -146,11 +195,15 @@ p.msg{
 	align-items: center;
 	border-top: 1px solid #e0e0d1;
 }
+
+
 #chatinput{
 	height: 90%;
 	width: 72%;
 	margin-right: 4px;
 }
+
+
 .mini{
 	min-width: 50px;
 	width: 24%;
@@ -158,11 +211,14 @@ p.msg{
 	height: 90%
 }
 
+
 #footer{
 	padding-top: 3px;
 	text-align:center;
 	color: white;
 }
+
+
 p.footer_text{
 	font-size: x-small;
 }

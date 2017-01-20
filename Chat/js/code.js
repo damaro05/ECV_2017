@@ -100,8 +100,8 @@ m2.fromJSON(data);*/
 function addMsgs( username, text ){
 	var msg = document.createElement("p");
 	msg.className = "msg";
-	//setTimeOut(function(){ msg.classList.add("visible"); },10);
-	msg.innerHTML = "<span class='username'>" + usr.name + ": </span>";
+	//setTimeout(function(){ msg.classList.add("visible"); },10);
+	msg.innerHTML = "<span class='username'>" + username + ": </span>";
 	
 	var span = document.createElement("span");
 	span.innerText = text;
