@@ -160,7 +160,7 @@ p.msg{
 	text-align: justify;
 }
 .msg-username{
-	width: 50%;
+	width: 40%;
     vertical-align: top;
     display: inline-block;
     *display: inline;
@@ -168,7 +168,7 @@ p.msg{
 	border-bottom: 1px solid black;
 }
 .msg-date{
-	width: 30%;
+	width: 40%;
     vertical-align: top;
     display: inline-block;
     *display: inline;

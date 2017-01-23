@@ -51,14 +51,14 @@ function User( name, avatar ){
 	if(name === undefined){ this.name = "";	}
 	else{ this.name = user.name; }
 	
-	if(avatar === undefined){ this.avatar = "";	}
+	if(avatar === undefined){ this.avatar = "img/avatar.jpg";	}
 	else{ this.avatar = user.avatar; }
 }
 
 function Message( user ){	
 	if ( user === undefined ){
 		this.u_name = "";
-		this.u_avatar = "";
+		this.u_avatar = "img/avatar.jpg";
 	}
 	else{
 		this.u_name = user.name;
@@ -86,7 +86,7 @@ Message.prototype.fromJSON = function( o ){
 
 var usr = new User();
 usr.name="Abel";
-usr.avatar="img.png";
+usr.avatar="img/avatar.jpg";
 /*var m = new Message(usr);
 m.text="hola";
 var d = new Date();
@@ -97,23 +97,44 @@ var data = JSON.parse( str );
 var m2 = new Message();
 m2.fromJSON(data);*/
 
-function addMsgs( username, text ){
-	var msg = document.createElement("p");
-	msg.className = "msg";
-	//setTimeout(function(){ msg.classList.add("visible"); },10);
-	msg.innerHTML = "<span class='username'>" + username + ": </span>";
-	
-	var span = document.createElement("span");
-	span.innerText = text;
-	span.clasName = "text";
-	msg.appendChild( span );
-	
+function addMsgs( message, received=false ){
+	var msg = document.createElement("div");
+
+	msg.className = "msg snd";
+	if( received ) msg.className = "msg rcv";
+		
+	var divUsername = document.createElement("div");
+	var divDate = document.createElement("div");
+	var parrafText = document.createElement("p");
+	var divInfo = document.createElement("div");
+	var divAvatar = document.createElement("div");
+
+	divUsername.className = "msg-username";
+	divDate.className = "msg-date";
+	parrafText.className = "msg-text";
+	divInfo.className = "msg-info";
+	divAvatar.className = "avatar avatar3";
+
+	divUsername.innerText = message.u_name;
+	var d = new Date(message.time);
+	divDate.innerText = d.toDateString();
+	parrafText.innerText = message.text;
+
+	divInfo.appendChild(divUsername);
+	divInfo.appendChild(divDate);
+	divInfo.appendChild(parrafText);
+
+	var urlAvatar = "background-image: url(' " + message.u_avatar + " ')";
+	divAvatar.style = urlAvatar;
+
+	msg.appendChild(divAvatar);
+	msg.appendChild(divInfo);
+
 	var msgs = document.querySelector("#msgs");
 	//Add message in msgs box
 	msgs.appendChild( msg );
 	//Auto scroll when user send a message
 	msgs.scrollTop = msgs.scrollHeight;
-
 }
 
 function sendMsg(){
@@ -123,12 +144,11 @@ function sendMsg(){
 	input.focus();
 	
 	if(text.trim().length != 0){
-		addMsgs( usr.name, text );
-		
 		var d = new Date();
 		var m = new Message( usr );
 		m.text = text;
 		m.time = d.getTime();
+		addMsgs( m );
 		
 		//Send message to server
 		server.sendMessage( JSON.stringify( m ) );
@@ -144,7 +164,8 @@ function receiveMsg( message ){
 	var m = new Message();
 	m.fromJSON( JSON.parse(message) );
 	
-	addMsgs( m.u_name, m.text );
+	//addMsgs( m.u_name, m.text, true );
+	addMsgs( m, true );
 }
 
 function logOut(){
@@ -154,3 +175,8 @@ function logOut(){
 /*window.onbeforeunload = function(e) {
 	logOut();
 }*/
+
+
+function createDivMessage(){
+
+}
