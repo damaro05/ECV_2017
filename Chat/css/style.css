@@ -155,6 +155,7 @@ p.msg{
 	border-top-right-radius: 6px 3px;
 	border-bottom-left-radius: 6px 3px;
 	border-bottom-right-radius: 6px 3px;
+	word-wrap: break-word;
 }
 .msg-info{
 	text-align: justify;
