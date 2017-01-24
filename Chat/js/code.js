@@ -40,13 +40,13 @@ server.on_close = function(){
 	}
 };
 
-var loginbutton = document.querySelector(".mini2");
-loginbutton = addEventListener("click", login);
-
 var avatar = document.querySelectorAll(".avatar4");
 for( var i = 0; i < avatar.length; i++){
 	avatar[i].addEventListener("click", selectAvatar);
 }
+
+var loginbutton = document.querySelector(".mini2");
+loginbutton.addEventListener("click", login);
 
 var button = document.querySelector("button");
 button.addEventListener("click", sendMsg);
@@ -104,6 +104,7 @@ var data = JSON.parse( str );
 var m2 = new Message();
 m2.fromJSON(data);*/
 
+/* Function to select avatar in login page */
 function selectAvatar(){
 	usr.avatar = this.style.backgroundImage;
 	for(var i = 0; i < avatar.length ; i++){
@@ -113,6 +114,7 @@ function selectAvatar(){
 }
 
 function login(){
+	console.log("hola");
 	var u_name = document.querySelector("#user");
 	console.log(u_name.value + " // " + usr.avatar);
 	

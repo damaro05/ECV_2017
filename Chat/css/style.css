@@ -159,7 +159,7 @@ p.msg{
 	height: 50px;
 }
 .avatar4:hover{
-	opacity: 0.3;
+	opacity: 0.5;
 	transition:opacity 0.5s linear;
 	#border: 1px solid black;
 }
