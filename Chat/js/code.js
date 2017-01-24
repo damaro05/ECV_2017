@@ -40,6 +40,13 @@ server.on_close = function(){
 	}
 };
 
+var loginbutton = document.querySelector(".mini2");
+loginbutton = addEventListener("click", login);
+
+var avatar = document.querySelectorAll(".avatar4");
+for( var i = 0; i < avatar.length; i++){
+	avatar[i].addEventListener("click", selectAvatar);
+}
 
 var button = document.querySelector("button");
 button.addEventListener("click", sendMsg);
@@ -86,7 +93,7 @@ Message.prototype.fromJSON = function( o ){
 
 var usr = new User();
 usr.name="Abel";
-usr.avatar="img/avatar.jpg";
+usr.avatar="url('img/avatar.jpg')";
 /*var m = new Message(usr);
 m.text="hola";
 var d = new Date();
@@ -96,6 +103,27 @@ var str = JSON.stringify( m.toJSON() );
 var data = JSON.parse( str );
 var m2 = new Message();
 m2.fromJSON(data);*/
+
+function selectAvatar(){
+	usr.avatar = this.style.backgroundImage;
+	for(var i = 0; i < avatar.length ; i++){
+		avatar[i].style.opacity = "";
+	}
+	this.style.opacity = 0.5;
+}
+
+function login(){
+	var u_name = document.querySelector("#user");
+	console.log(u_name.value + " // " + usr.avatar);
+	
+	if(u_name.value.trim().length > 0 ){
+		usr.name = u_name.value;
+		var l = document.querySelector(".login-externo");
+		l.style.display = "none"
+		var m = document.querySelector("#main");
+		m.style.display = "inline";
+	}
+}
 
 function addMsgs( message, received=false ){
 	var msg = document.createElement("div");
@@ -124,7 +152,8 @@ function addMsgs( message, received=false ){
 	divInfo.appendChild(divDate);
 	divInfo.appendChild(parrafText);
 
-	var urlAvatar = "background-image: url(' " + message.u_avatar + " ')";
+	//var urlAvatar = "background-image: url(' " + message.u_avatar + " ')";
+	var urlAvatar = "background-image: " + message.u_avatar;
 	divAvatar.style = urlAvatar;
 
 	msg.appendChild(divAvatar);
