@@ -1,5 +1,58 @@
 //ECV 2017
 //********
+function User( id ){
+	if(id === undefined){ this.id = "";	}
+	else{ this.id = id; }
+	
+	this.name = "";
+	this.avatar = "img/avatar.jpg";
+}
+
+function Message( user ){	
+	if ( user === undefined ){
+		this.u_id = "";
+		this.u_name = "";
+		this.u_avatar = "img/avatar.jpg";
+	}
+	else{
+		this.u_id = user.id;
+		this.u_name = user.name;
+		this.u_avatar = user.avatar;
+	}
+	this.text = "";
+	this.time = "";
+}
+
+Message.prototype.toJSON = function(){
+	return {
+		u_id: this.u_id,
+		u_name: this.u_name,
+		u_avatar: this.u_avatar,
+		m_text: this.text,
+		m_time: this.time
+	};
+}
+
+Message.prototype.fromJSON = function( o ){
+	this.u_id = o.u_id;
+	this.u_name = o.u_name;
+	this.u_avatar = o.u_avatar;
+	this.text = o.m_text;
+	this.time = o.m_time;
+}
+
+var usr = new User();
+var roomUsers = [];
+/*usr.name="Abel";
+usr.avatar="url('img/avatar.jpg')";
+var m = new Message(usr);m.text="hola";
+var d = new Date();
+m.time=d.getTime();
+
+var str = JSON.stringify( m.toJSON() );
+var data = JSON.parse( str );
+var m2 = new Message();
+m2.fromJSON(data);*/
 
 var room_name = "ADSM";
 var timer = null;
@@ -13,19 +66,36 @@ server.connect("84.89.136.194:9000", room_name);
 server.on_ready = function( id ){
 	//user connected to server
 	console.log("I'm connected with id " + id );
+	usr.id = id;
 };
 
 //this methods receives messages from other users (author_id its an unique identifier)
 server.on_message = function( author_id, msg ){
 	//message received
-	//console.log("user " + author_id + " said " + msg);
-	receiveMsg( msg );
+	console.log("user " + author_id + " said " + msg);
+	
+	var m = new Message();
+	m.fromJSON( JSON.parse(msg) );
+	
+	if( (roomUsers[author_id] === undefined ||  m.text === undefined) && author_id != usr.id ){
+		//receive info about a user in the room
+		var m2 = JSON.parse(msg);
+		var user = {name:m2.name, avatar:m2.avatar};
+		roomUsers[author_id] = user;
+	}
+	else{
+		//Receive chat message
+		receiveMsg( msg );
+	}
 }
 
 //this methods is called when a new user is connected
 server.on_user_connected = function(msg){
 	//new user!
 	//Lista de usuarios en el room y poder seleccionar uno para enviar mensaje/chat privado
+	var id = msg;
+	sendUserDataMsg(id);
+	roomUsers[id] = {};
 }
 
 server.on_close = function(){
@@ -54,56 +124,6 @@ button.addEventListener("click", sendMsg);
 var input = document.querySelector("#chatinput");
 input.onkeydown = onEnterPressed;
 
-function User( name, avatar ){
-	if(name === undefined){ this.name = "";	}
-	else{ this.name = user.name; }
-	
-	if(avatar === undefined){ this.avatar = "img/avatar.jpg";	}
-	else{ this.avatar = user.avatar; }
-}
-
-function Message( user ){	
-	if ( user === undefined ){
-		this.u_name = "";
-		this.u_avatar = "img/avatar.jpg";
-	}
-	else{
-		this.u_name = user.name;
-		this.u_avatar = user.avatar;
-	}
-	this.text = "";
-	this.time = "";
-}
-
-Message.prototype.toJSON = function(){
-	return {
-		u_name: this.u_name,
-		u_avatar: this.u_avatar,
-		m_text: this.text,
-		m_time: this.time
-	};
-}
-
-Message.prototype.fromJSON = function( o ){
-	this.u_name = o.u_name;
-	this.u_avatar = o.u_avatar;
-	this.text = o.m_text;
-	this.time = o.m_time;
-}
-
-var usr = new User();
-usr.name="Abel";
-usr.avatar="url('img/avatar.jpg')";
-/*var m = new Message(usr);
-m.text="hola";
-var d = new Date();
-m.time=d.getTime();
-
-var str = JSON.stringify( m.toJSON() );
-var data = JSON.parse( str );
-var m2 = new Message();
-m2.fromJSON(data);*/
-
 /* Function to select avatar in login page */
 function selectAvatar(){
 	usr.avatar = this.style.backgroundImage;
@@ -114,9 +134,7 @@ function selectAvatar(){
 }
 
 function login(){
-	console.log("hola");
 	var u_name = document.querySelector("#user");
-	console.log(u_name.value + " // " + usr.avatar);
 	
 	if(u_name.value.trim().length > 0 ){
 		usr.name = u_name.value;
@@ -124,6 +142,7 @@ function login(){
 		l.style.display = "none"
 		var m = document.querySelector("#main");
 		m.style.display = "inline";
+		sendUserDataMsg();
 	}
 }
 
@@ -168,6 +187,10 @@ function addMsgs( message, received=false ){
 	msgs.scrollTop = msgs.scrollHeight;
 }
 
+function sendUserDataMsg( id ){
+	server.sendMessage( JSON.stringify( usr ), id );
+}
+
 function sendMsg(){
 	var input = document.querySelector("#chatinput");
 	var text = input.value;
@@ -195,7 +218,6 @@ function receiveMsg( message ){
 	var m = new Message();
 	m.fromJSON( JSON.parse(message) );
 	
-	//addMsgs( m.u_name, m.text, true );
 	addMsgs( m, true );
 }
 
