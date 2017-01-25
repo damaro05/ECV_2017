@@ -1,5 +1,6 @@
 //ECV 2017
 //********
+/*************************************** Data definition ***************************************/
 function User( id ){
 	if(id === undefined){ this.id = "";	}
 	else{ this.id = id; }
@@ -54,6 +55,7 @@ var data = JSON.parse( str );
 var m2 = new Message();
 m2.fromJSON(data);*/
 
+/*************************************** Server ***************************************/
 var room_name = "ADSM";
 var timer = null;
 var reconnect = true;
@@ -72,7 +74,7 @@ server.on_ready = function( id ){
 //this methods receives messages from other users (author_id its an unique identifier)
 server.on_message = function( author_id, msg ){
 	//message received
-	console.log("user " + author_id + " said " + msg);
+	//console.log("user " + author_id + " said " + msg);
 	
 	var m = new Message();
 	m.fromJSON( JSON.parse(msg) );
@@ -110,6 +112,8 @@ server.on_close = function(){
 	}
 };
 
+
+/*************************************** Listeners ***************************************/
 var avatar = document.querySelectorAll(".avatar4");
 for( var i = 0; i < avatar.length; i++){
 	avatar[i].addEventListener("click", selectAvatar);
@@ -124,6 +128,7 @@ button.addEventListener("click", sendMsg);
 var input = document.querySelector("#chatinput");
 input.onkeydown = onEnterPressed;
 
+/*************************************** Action functions ***************************************/
 /* Function to select avatar in login page */
 function selectAvatar(){
 	usr.avatar = this.style.backgroundImage;
@@ -228,7 +233,6 @@ function logOut(){
 /*window.onbeforeunload = function(e) {
 	logOut();
 }*/
-
 
 function createDivMessage(){
 
