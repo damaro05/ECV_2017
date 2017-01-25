@@ -100,6 +100,11 @@ server.on_user_connected = function(msg){
 	roomUsers[id] = {};
 }
 
+server.on_user_disconnected = function(user_id){
+	//Unregister user
+	delete roomUsers[user_id];
+}
+
 server.on_close = function(){
 	//time 5s y reconectar
 	//this methods is called when the server gets closed (its shutdown)
