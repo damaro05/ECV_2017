@@ -242,3 +242,38 @@ function logOut(){
 function createDivMessage(){
 
 }
+
+
+/*Prueba de codigo para menu desplegable*/
+/*var item = document.querySelector(".dropbtn");
+item.addEventListener("click", func);
+
+var item2 = document.querySelector(".dropbtn2");
+item2.addEventListener("click", func2);
+function func() {
+	//If other menu is showing (class "show"), hide it
+	var otro = document.getElementById("myDropdown2").classList;
+	if(otro[1] !== undefined) func2();
+	//Show this menu
+    document.getElementById("myDropdown").classList.toggle("show");
+}
+function func2() {
+var otro = document.getElementById("myDropdown").classList;
+	if(otro[1] !== undefined) func();
+    document.getElementById("myDropdown2").classList.toggle("show");
+}
+
+function filterFunction() {
+    var input, filter, ul, li, a, i;
+    input = document.getElementById("myInput");
+    filter = input.value.toUpperCase();
+    div = document.getElementById("myDropdown");
+    a = div.getElementsByTagName("a");
+    for (i = 0; i < a.length; i++) {
+        if (a[i].innerHTML.toUpperCase().indexOf(filter) > -1) {
+            a[i].style.display = "";
+        } else {
+            a[i].style.display = "none";
+        }
+    }
+}*/
