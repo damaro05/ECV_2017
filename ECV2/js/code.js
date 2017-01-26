@@ -1,6 +1,8 @@
 var APP = {
 	init: function(){
 		console.log("init APP");
+		
+		var canvas_painter = new CanvasPainter("#painter");
 	}
 };
 

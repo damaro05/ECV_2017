@@ -1,6 +1,12 @@
 function CanvasPainter( canvas ){
 	this.canvas = document.quierySelector( canvas_selector );
 	this.canvas.style.backgroundColor = "black"
+	
+	var parent = this.canvas.parentNode;
+	var rect = parent.getBoundingClientRect();
+	this.canvas.widht = parent.
+	this.canvas.height = parent.
+	
 	this.draw();
 	this.drawing = false;
 	
@@ -29,7 +35,7 @@ CanvasPainter.prototype.bindEvents = frunction(){
 }
 
 CanvasP.prototype.onMouseEvent = function (e){
-	console.log(e.client);
+	//console.log(e);
 	
 	if(e.type == "mousemove"){
 		
@@ -60,10 +66,10 @@ CanvasPrototype.prototype.executeAction = function(){
 CanvasPAinter.prototype.draw = function(){
 	var ctx = this.canvas.getContext("2d");
 	
-	ctx.fillStyle = "red";
+	ctx.fillStyle = "black";
 	ctx.fillRect(0,0, this.canvas.width, this.canvas.height);
 	
-	ctx.strokeStyle = "white";
+	ctx.strokeStyle = "red";
 	
 	ctx.strokeRect(Math.sin(performance.now()*0.001)*100+200,0,100,100);
 }
