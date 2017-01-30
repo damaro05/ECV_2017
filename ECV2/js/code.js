@@ -32,13 +32,14 @@ var APP = {
 
 		/*var parent = document.querySelector("#painter");
 		var rect = parent.getBoundingClientRect();*/
+		var parent = document.querySelector("#contentCanvas");
+		var width = parent.clientWidth;
+		var height = parent.clientHeight;
+		//var container = document.createElement( 'div' );
+		//container.setAttribute( "style","width:500; height:500");
+		//contentCanvas.appendChild(container);
 
-		var contentCanvas = document.querySelector("#contentCanvas");
-		var container = document.createElement( 'div' );
-		container.setAttribute( "style","width:500; height:500");
-		contentCanvas.appendChild(container);
-
-		camera = new THREE.PerspectiveCamera( 70, container.clientWidth / container.clientHeight, 1, 10000);
+		camera = new THREE.PerspectiveCamera( 70, width / height, 1, 10000);
 		camera.position.z = 1000;
 
 		scene = new THREE.Scene();
@@ -54,13 +55,9 @@ var APP = {
 
 		renderer = new THREE.WebGLRenderer();
 		renderer.setPixelRatio( window.devicePixelRatio );
-		renderer.setSize( container.clientWidth, container.clientHeight );
+		renderer.setSize( width, height );
 		
-
-		container.appendChild( renderer.domElement );
-
-
-
+		parent.appendChild( renderer.domElement );
 
 		function animate(){
 			requestAnimationFrame( animate );
