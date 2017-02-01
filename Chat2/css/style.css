@@ -37,6 +37,10 @@ td{
 .avatar-td{
 	height: 70px;
 }
+.avatar-msg{
+	float:left;
+	margin: 3px 5px 0px 3px;
+}
 
 .div-center{
 	margin: auto;

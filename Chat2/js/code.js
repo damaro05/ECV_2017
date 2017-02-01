@@ -89,35 +89,19 @@ server.on_message = function( author_id, msg ){
 	else{
 		console.log("Type message error: "+m.type);
 	}
-	
-	/*if( (roomUsers[author_id] === undefined ||  m.text === undefined) && author_id != usr.id ){
-		//receive info about a user in the room
-		var m2 = JSON.parse(msg);
-		var user = {name:m2.name, avatar:m2.avatar};
-		roomUsers[author_id] = user;
-	}
-	else{
-		//Receive chat message
-		receiveMsg( msg );
-	}*/
 }
 
 //this methods is called when a new user is connected
 server.on_user_connected = function( msg ){
 	//new user!
 	
-	//Lista de usuarios en el room y poder seleccionar uno para enviar mensaje/chat privado
-	
 	var id = msg;
-	if(id != usr.id){
-		sendUserDataMsg(id);
-		//roomUsers[id] = {};
-	}
+	if(id != usr.id){ sendUserDataMsg(id); }
 }
 
 server.on_user_disconnected = function(user_id){
 	//Unregister user
-	delete roomUsers[user_id];
+	deleteUser( user_id );
 }
 
 server.on_close = function(){
@@ -234,9 +218,16 @@ function newUser( msg ){
 	aUser.addEventListener( "click", function(){ openchat(m.u_id); } );
 }
 
+function deleteUser( id ){
+	var del = document.getElementById(id);
+	del.remove();
+	
+	delete roomUsers[id];
+}
+
 function openchat( id ){
 	var i;
-	var 
+	
 	for(i = 0; i<openchats.length ; i++){
 		if( openchats[i] === id){
 			//Abrimos nuevo chat (div en barra lateral y div en contenedor mensajes
@@ -267,7 +258,7 @@ function addMsgs( message, received=false ){
 	divDate.className = "msg-date";
 	parrafText.className = "msg-text";
 	divInfo.className = "msg-info";
-	divAvatar.className = "avatar avatar3";
+	divAvatar.className = "avatar avatar-25 avatar-msg";
 
 	divUsername.innerText = message.u_name;
 	var d = new Date(message.time);
