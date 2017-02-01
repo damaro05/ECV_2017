@@ -91,7 +91,7 @@ var APP = {
 
 		/*var parent = document.querySelector("#painter");
 		var rect = parent.getBoundingClientRect();*/
-		var parent = document.querySelector("#contentCanvas");
+		var parent = document.getElementById("3DCanvas");
 		var width = parent.clientWidth;
 		var height = parent.clientHeight;
 		//var container = document.createElement( 'div' );
@@ -99,24 +99,42 @@ var APP = {
 		//contentCanvas.appendChild(container);
 
 		camera = new THREE.PerspectiveCamera( 70, width / height, 1, 10000);
-		camera.position.z = 1000;
+		camera.position.set( 0, 15, 35);
 
 		scene = new THREE.Scene();
+		scene.add( new THREE.AmbientLight( 0x404040 ) );
 
 		var texture = new THREE.TextureLoader().load('img/texture1.jpg');
 		//var geometry = new THREE.BoxBufferGeometry( 200, 200, 200 );
 		//var material = new THREE.MeshBasicMaterial( { map: texture } );
-		var geometry = new THREE.BoxGeometry( 200, 200, 200 );
+		var geometry = new THREE.BoxGeometry( 5, 5, 5 );
 		var material = new THREE.MeshBasicMaterial( { color: 0xff0000, wireframe: true } );
 
 		mesh = new THREE.Mesh( geometry, material );
+		mesh.position.set( 0, 5, 0 );
 		scene.add( mesh );
 
 		renderer = new THREE.WebGLRenderer();
 		renderer.setPixelRatio( window.devicePixelRatio );
 		renderer.setSize( width, height );
-		
 		parent.appendChild( renderer.domElement );
+
+		//Ground
+		var groundGeometry = new THREE.BoxGeometry( 10, 0.15, 10);
+		var groundMaterial = new THREE.MeshPhongMaterial({
+			color: 0xa0adaf,
+			specular: 0xffffff
+		});
+
+		var ground = new THREE.Mesh( groundGeometry, groundMaterial );
+		ground.scale.multiplyScalar( 3 );
+		ground.receiveShadow = true;
+		scene.add( ground );
+
+		//	Controls
+		controls = new THREE.OrbitControls( camera, renderer.domElement );
+		controls.target.set( 0, 10, 0 );
+		controls.update();
 
 		function animate(){
 			requestAnimationFrame( animate );
