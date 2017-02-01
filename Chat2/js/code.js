@@ -8,7 +8,7 @@ function User( id ){
 	else{ this.id = id; }
 	
 	this.name = "";
-	this.avatar = "img/avatar.jpg";
+	this.avatar = "url('img/avatar.jpg')";
 }
 
 function Message( type, user ){
@@ -310,7 +310,11 @@ function sendMsg(){
 
 function onEnterPressed( event ){
 	var key = event.which || event.keyCode;
-	if(key == 13) sendMsg();
+	if(key == 13){
+		sendMsg();
+		var input = document.querySelector("#chatinput");
+		input.value = input.value.trim();
+	}
 }
 
 //-- Receive text message from other users
