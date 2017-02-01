@@ -28,6 +28,7 @@ CanvasPainter.prototype.animate = function(){
 	}
 }
 
+/*
 CanvasPainter.prototype.bindEvents = frunction(){
 	this.canvas.addEventListener("mousedown",this.onMouseEvent.bind( this.));
 	this.canvas.addEventListener("mousemove",this.onMouseEvent.bind(this));
@@ -48,7 +49,7 @@ CanvasP.prototype.onMouseEvent = function (e){
 	}
 }
 
-CanvasPrototype.prototype.executeAction = function(){
+CanvasPainter.prototype.executeAction = function(action, parameters){
 	if(action = "paint"){
 		var x = 0;
 		var y = 0;
@@ -63,7 +64,7 @@ CanvasPrototype.prototype.executeAction = function(){
 	}
 }
 
-CanvasPAinter.prototype.draw = function(){
+CanvasPainter.prototype.draw = function(){
 	var ctx = this.canvas.getContext("2d");
 	
 	ctx.fillStyle = "black";
@@ -73,3 +74,5 @@ CanvasPAinter.prototype.draw = function(){
 	
 	ctx.strokeRect(Math.sin(performance.now()*0.001)*100+200,0,100,100);
 }
+
+*/
