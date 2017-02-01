@@ -1,0 +1,338 @@
+*{
+	padding: 0;
+	margin: 0;
+}
+
+body{
+	font-family: Verdana, Geneva, sans-serif;
+}
+td{
+	vertical-align: middle;
+}
+
+/********************* General styles *********************/
+
+.avatar{
+	background-repeat: no-repeat;
+    background-position: 50%;
+    border-radius: 50%;
+    background-size: 100% auto;
+}
+.avatar-25{
+	width: 25px;
+	height: 25px;
+}
+.avatar-50{
+	width: 50px;
+	height: 50px;
+}
+.avatar-50:hover{
+	opacity: 0.7;
+	cursor: pointer;
+}
+.avatar-select{
+	opacity: 0.7;
+	border: 1px solid black;
+}
+.avatar-td{
+	height: 70px;
+}
+
+.div-center{
+	margin: auto;
+}
+
+/********************* Login page styles *********************/
+#login-main{
+	display: table;
+    position: absolute;
+    height: 100%;
+    width: 100%;
+	
+	background: linear-gradient(152deg, #4b2602, #df7903);
+	background-size: 125% 125%;
+
+	-webkit-animation: AnimationName 16s ease infinite;
+	-moz-animation: AnimationName 16s ease infinite;
+	animation: AnimationName 16s ease infinite;
+
+	@-webkit-keyframes AnimationName {
+		0%{background-position:0% 82%}
+		50%{background-position:100% 19%}
+		100%{background-position:0% 82%}
+	}
+	@-moz-keyframes AnimationName {
+		0%{background-position:0% 82%}
+		50%{background-position:100% 19%}
+		100%{background-position:0% 82%}
+	}
+	@keyframes AnimationName { 
+		0%{background-position:0% 82%}
+		50%{background-position:100% 19%}
+		100%{background-position:0% 82%}
+	}
+}
+
+.login-middle{
+	display: table-cell;
+    vertical-align: middle;
+}
+
+.login-intern{
+	background-color: #ff9900;
+	border: 2px solid black;
+	width: 350px;
+	height: 230px;
+	margin: auto;
+	padding: 5px;
+}
+.login-intern table{
+	width: 100%;
+}
+.login-intern td{
+	width: 25%;
+}
+
+.btn{
+	background-color: white;
+	border: 2px solid #c2d6d6;
+	border-radius: 15px;
+	text-align: center;
+	min-height: 30px;
+	min-width: 80px;
+	display: inline-block;
+	-webkit-box-shadow: 4px 4px 4px 0px rgba(56,54,56,0.75);
+	-moz-box-shadow: 4px 4px 4px 0px rgba(56,54,56,0.75);
+	box-shadow: 4px 4px 4px 0px rgba(56,54,56,0.75);
+	cursor: pointer;
+}
+.btn span{
+  display: inline-block;
+  vertical-align: middle;
+  line-height: 30px;
+}
+.btn:hover{
+	background-color: #ebebe0;
+	-webkit-box-shadow: 2px 2px 2px 0px rgba(56,54,56,0.75);
+	-moz-box-shadow: 2px 2px 2px 0px rgba(56,54,56,0.75);
+	box-shadow: 2px 2px 2px 0px rgba(56,54,56,0.75);
+}
+
+.center-td{
+	text-align: center;
+}
+
+/********************* Main page styles *********************/
+#main{
+	display: none;
+	width: 100%;
+	height:100%;
+	text-align: center;
+}
+
+
+.chat-general{
+	width: 300px;
+	min-height: 300px;
+	height: 100%;
+	float: left;
+	border-right: 1px solid #e0e0d1;
+}
+
+.header{
+	background-color: black;
+	width: 100%;
+	height: 4.5%;
+}
+#menu{
+	float: left;
+	#min-width: 180px;
+	width: 56%;
+}
+#userList{
+	min-width: 92px;
+	float: none;
+}
+.dropbtn {
+    background-color: black;
+    color: white;
+    padding: 8px 10px 8px 10px;
+    font-size: 16px;
+    border: none;
+    cursor: pointer;
+}
+.dropbtn:hover, .dropbtn:focus {
+    background-color: gray;
+}
+#myInput {
+    font-size: 14px;
+    padding: 10px 10px 10px 10px;
+    border: none;
+}
+.dropdown {
+    position: relative;
+    display: inline-block;
+	text-align: left;
+}
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f6f6f6;
+    min-width: 180px;
+    overflow: auto;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+}
+.dropdown-content1{
+	#margin-top: 8px;
+    #margin-left: -9px;
+	margin-top: 39px;
+    margin-left: 1px;
+}
+.dropdown-content2{
+	#margin-top: 8px;
+    #margin-left: -9px;
+	#margin-top: 39px;
+    margin-left: 190px;
+}
+.dropdown-content a {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+}
+.dropdown-content a:hover {background-color: #ddd}
+.show {display:block;}
+
+.chat-content{
+	width: 100%;
+	height: 90%;
+	min-height: 200px;
+	display: inline-block;
+}
+.chatList{
+	background-color: #ff9900;
+	min-height: 300px;
+	height: 100%;
+	width: 64px;
+	float: left;
+	position:relative;
+	font-size: x-small;
+	text-align: center;
+}
+
+.hidden-scrollbar{
+	overflow:hidden;
+}
+.hidden-scrollbar .openchats {
+	height:100%;
+	overflow-y:scroll;
+	overflow-x:hidden;
+	margin:0px -292px 0px 0px;
+	padding-right:274px;
+}
+
+.chat{
+	border-bottom: 1px solid #ffebcc;
+	padding-top: 2px;
+}
+.chat:hover{
+	background-color: #804d00;
+	color: white;
+}
+
+.chat-msgs{
+	min-height: 300px;
+	height: 100%;
+	float: none;
+	font-size: small;
+}
+.msgs{
+	height: 88%;
+	text-align: left;
+	vertical-align:top;
+	overflow-y: auto;
+	display: none;
+}
+.msg{
+	min-height: 35px;
+	width: 95%;
+	margin: 0px 5px 2px 5px;
+	padding: 1px 2px 1px 2px;
+	border-top-left-radius: 6px 3px;
+	border-top-right-radius: 6px 3px;
+	border-bottom-left-radius: 6px 3px;
+	border-bottom-right-radius: 6px 3px;
+	word-wrap: break-word;
+}
+.msg-info{
+	text-align: justify;
+}
+.msg-username{
+	width: 40%;
+    vertical-align: top;
+    display: inline-block;
+    *display: inline;
+	font-size:xx-small;
+	border-bottom: 1px solid black;
+}
+.msg-date{
+	width: 40%;
+    vertical-align: top;
+    display: inline-block;
+    *display: inline;
+	font-size:xx-small;
+	text-align:right;
+}
+.msg-text{
+    font-size: small;
+	padding: 0px 2px 2px 2px;
+}
+
+.rcv{
+	background-color:#f5f5f0;
+}
+.snd{
+	background-color:#ffe0b3;
+}
+
+#writer{
+	height: 12%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	border-top: 1px solid #e0e0d1;
+}
+#writer textarea{
+	resize: none;
+}
+#chatinput{
+	height: 90%;
+	width: 72%;
+	margin-right: 4px;
+	padding: 2px;
+}
+
+.mini{
+	min-width: 50px;
+	width: 24%;
+	min-height: 20px;
+	height: 90%
+}
+
+
+.footer{
+	/*width: 300px;
+	position: absolute;
+	right:0;
+	bottom: 0;
+	left: 0;*/
+	background-color: black;
+	padding: 3px 0px 3px 0px;
+	color: white;
+	font-size: xx-small;
+}
+
+.canvas-general{
+	height: 100%;
+}

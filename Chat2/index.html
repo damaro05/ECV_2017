@@ -1,0 +1,168 @@
+<html>
+	<head>
+		<link href="css/style.css" rel="stylesheet">
+	</head>
+	<body>
+		<!----- Login ----->
+		<div id="login-main">
+			<div class="login-middle">
+				<div class="login-intern">
+					<table>
+						<tr>
+							<td>Username:</td>
+							<td colspan="3"><input id="user" type="text" name="username" placeholder="Write your username"/></td>
+						</tr>
+						<tr>
+							<td>Avatar:</td>
+							<td colspan="3"><input id="avatarUrl" type="text" name="avatarUrl" placeholder="Write image URL"/></td>
+						</tr>
+						<tr>
+							<td class="avatar-td"><div class="avatar avatar-50 div-center avatar-select" style="background-image: url('img/avatar.jpg')"></div></td>
+							<td class="avatar-td"><div class="avatar avatar-50 div-center" style="background-image: url('http://icons.iconarchive.com/icons/mattahan/ultrabuuf/256/Comics-Logan-icon.png')"></div></td>
+							<td class="avatar-td"><div class="avatar avatar-50 div-center" style="background-image: url('http://icons.iconarchive.com/icons/mattahan/ultrabuuf/256/Street-Fighter-Chun-Li-icon.png')"></div></td>
+							<td class="avatar-td"><div class="avatar avatar-50 div-center" style="background-image: url('http://icons.iconarchive.com/icons/mattahan/ultrabuuf/256/Comics-Batman-Joker-icon.png')"></div></td>
+						</tr>
+						<tr>
+							<td class="avatar-td"><div class="avatar avatar-50 div-center" style="background-image: url('http://icons.iconarchive.com/icons/mattahan/ultrabuuf/256/Comics-Magneto-icon.png')"></div></td>
+							<td class="avatar-td"><div class="avatar avatar-50 div-center" style="background-image: url('http://icons.iconarchive.com/icons/mattahan/ultrabuuf/256/Comics-Mask-icon.png')"></div></td>
+							<td class="avatar-td"><div class="avatar avatar-50 div-center" style="background-image: url('http://icons.iconarchive.com/icons/mattahan/ultrabuuf/256/Comics-Older-Superman-icon.png')"></div></td>
+							<td class="avatar-td"><div class="avatar avatar-50 div-center" style="background-image: url('http://icons.iconarchive.com/icons/mattahan/ultrabuuf/256/Comics-Hulk-Happy-icon.png')"></div></td>
+						</tr>
+						<tr>
+							<td colspan="4" class="center-td">
+								<div id="login-btn" class="btn"><span>Login</span></div>
+							</td>
+						</tr>
+					</table>
+				</div>
+			</div>
+		</div>
+		<!----- End Login ----->
+		
+		<!----- Main ----->
+		<div id="main">
+			<!----- Chat ----->
+			<div class="chat-general">
+				
+				<!----- Header ----->
+				<div class="header">
+					<div id="menu" class="dropdown dropbtn">
+						<img src="img/menuIcon.png" width="20" height="20"/>
+						<span id="roomName">ROOM</span>
+					</div>
+					<div id="myDropdown1" class="dropdown-content dropdown-content1">
+						<a href="#about">Switch room</a>
+						<a href="#blog">Avatar</a>
+						<a href="#contact">Logout</a>
+					</div>
+					
+					<div id="userList" class="dropdown dropbtn">
+						<img src="img/menuIcon.png" width="20" height="20"/>
+						<span>Users</span>
+					</div>
+					<div id="myDropdown2" class="dropdown-content dropdown-content2">
+						<input type="text" placeholder="Search.." id="myInput">
+					</div>
+				</div>
+				<!----- End Header ----->
+				
+				<!----- Chat Content ----->
+				<div class="chat-content">
+					<div class="chatList">
+						<div class="hidden-scrollbar">
+							<div class="openchats">
+								<div id="chat_general" class="chat">
+									<div class="avatar avatar-25 div-center" style="background-image: url('img/gLetter.PNG')"></div>
+									<span>General</span> 
+								</div>
+								<div class="chat">
+									<div class="avatar avatar-25 div-center" style="background-image: url('img/avatar.jpg')"></div>
+									<span>User 2</span> 
+								</div> 
+								<div class="chat">
+									<div class="avatar avatar-25 div-center" style="background-image: url('img/avatar.jpg')"></div>
+									<span>User 3</span> 
+								</div>
+								<!--<div class="chat">
+									<div class="avatar avatar-25 div-center" style="background-image: url('img/avatar.jpg')"></div>
+									<span>User 3</span> 
+								</div>
+								<div class="chat">
+									<div class="avatar avatar-25 div-center" style="background-image: url('img/avatar.jpg')"></div>
+									<span>User 3</span> 
+								</div>
+								<div class="chat">
+									<div class="avatar avatar-25 div-center" style="background-image: url('img/avatar.jpg')"></div>
+									<span>User 3</span> 
+								</div>
+								<div class="chat">
+									<div class="avatar avatar-25 div-center" style="background-image: url('img/avatar.jpg')"></div>
+									<span>User 3</span> 
+								</div><div class="chat">
+									<div class="avatar avatar-25 div-center" style="background-image: url('img/avatar.jpg')"></div>
+									<span>User 3</span> 
+								</div>
+								<div class="chat">
+									<div class="avatar avatar-25 div-center" style="background-image: url('img/avatar.jpg')"></div>
+									<span>User 3</span> 
+								</div>
+								<div class="chat">
+									<div class="avatar avatar-25 div-center" style="background-image: url('img/avatar.jpg')"></div>
+									<span>User 3</span> 
+								</div>
+								<div class="chat">
+									<div class="avatar avatar-25 div-center" style="background-image: url('img/avatar.jpg')"></div>
+									<span>Hola</span> 
+								</div><div class="chat">
+									<div class="avatar avatar-25 div-center" style="background-image: url('img/avatar.jpg')"></div>
+									<span>User 3</span> 
+								</div><div class="chat">
+									<div class="avatar avatar-25 div-center" style="background-image: url('img/avatar.jpg')"></div>
+									<span>User 3</span> 
+								</div>
+								<div class="chat">
+									<div class="avatar avatar-25 div-center" style="background-image: url('img/avatar.jpg')"></div>
+									<span>User 3</span> 
+								</div><div class="chat">
+									<div class="avatar avatar-25 div-center" style="background-image: url('img/avatar.jpg')"></div>
+									<span>User 3</span> 
+								</div>-->
+							</div>
+						</div>
+					</div>
+				
+					
+					<div class="chat-msgs">
+						<div id="chat-general-content" class="msgs"></div>
+						<div id="chat-00000-content" class="msgs"></div>
+						<div id="writer">
+							<!--<input id="chatinput" type="text" />-->
+							<textarea id="chatinput"></textarea>
+							<button class="mini">send</button>
+						</div>
+					</div>
+				</div>
+				<!----- End Chat Content ----->
+				
+				<!----- Footer ----->
+				<div class="footer">
+					Made by Abel Dellà and Sebastián Maya
+				</div>
+				<!----- End Footer ----->
+			</div>
+			<!----- End Chat ----->
+			
+			<!----- Canvas ----->
+			<div class="canvas-general">
+			
+			</div>
+			<!----- End Canvas ----->
+			
+		</div>
+		<!----- End Main ----->
+		
+		<!-- JavaScript code -->
+		<script src="js/libs/sillyclient.js"></script>
+		<script src="js/code.js"></script>
+	</body>
+</html>
