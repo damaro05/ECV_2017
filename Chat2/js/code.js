@@ -54,6 +54,82 @@ Message.prototype.fromJSON = function( o ){
 }
 
 var usr = new User();
+
+/***************************************  Canvas  ****************************************/
+/*****************************************************************************************/
+var APP = {
+	init: function()
+	{
+		console.log("init APP");
+		//2D
+/*		this.canvas_painter = new CanvasPainter("#painter");
+		this.canvas_painter.bindEvents();
+		this.canvas_painter.animete();
+
+		this.canvas_painter.onAction = function(action, parameters)
+		{
+			var json = {
+				action: action,
+				parameters: parameters
+			}
+			server.sendMessage( JSON.stringify(msg) );
+		}
+
+		server.on_message = function(id, msg)
+		{
+			var json = JSON.parse( msg );
+			this.canvas_painter.executeAction( json.action, json.parameters);
+
+		}*/
+		this.start3D();
+	
+	},
+
+	start3D: function()
+	{
+		var camera, scene, renderer, mesh;
+
+		/*var parent = document.querySelector("#painter");
+		var rect = parent.getBoundingClientRect();*/
+		var parent = document.querySelector("#contentCanvas");
+		var width = parent.clientWidth;
+		var height = parent.clientHeight;
+		//var container = document.createElement( 'div' );
+		//container.setAttribute( "style","width:500; height:500");
+		//contentCanvas.appendChild(container);
+
+		camera = new THREE.PerspectiveCamera( 70, width / height, 1, 10000);
+		camera.position.z = 1000;
+
+		scene = new THREE.Scene();
+
+		var texture = new THREE.TextureLoader().load('img/texture1.jpg');
+		//var geometry = new THREE.BoxBufferGeometry( 200, 200, 200 );
+		//var material = new THREE.MeshBasicMaterial( { map: texture } );
+		var geometry = new THREE.BoxGeometry( 200, 200, 200 );
+		var material = new THREE.MeshBasicMaterial( { color: 0xff0000, wireframe: true } );
+
+		mesh = new THREE.Mesh( geometry, material );
+		scene.add( mesh );
+
+		renderer = new THREE.WebGLRenderer();
+		renderer.setPixelRatio( window.devicePixelRatio );
+		renderer.setSize( width, height );
+		
+		parent.appendChild( renderer.domElement );
+
+		function animate(){
+			requestAnimationFrame( animate );
+			mesh.rotation.x += 0.05;
+			mesh.rotation.y += 0.01;
+
+			renderer.render( scene, camera );
+
+		}
+
+		animate();
+	}
+};
 /*************************************** Server ***************************************/
 /**************************************************************************************/
 var room_name = "ADSM";
@@ -69,6 +145,7 @@ server.on_ready = function( id ){
 	console.log("I'm connected with id " + id );
 	usr.id = id;
 	sendUserDataMsg();
+	APP.init();
 };
 
 //this methods receives messages from other users (author_id its an unique identifier)
