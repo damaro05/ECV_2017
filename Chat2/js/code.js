@@ -57,16 +57,12 @@ var usr = new User();
 
 /***************************************  Canvas  ****************************************/
 /*****************************************************************************************/
+//posición random para la camara de cada usuario al iniciar sesion
+//
 var APP = {
 	init: function()
 	{
 		console.log("init APP");
-		server.on_message = function(id, msg)
- 		{
- 			var json = JSON.parse( msg );
- 			console.log( json );
- 
- 		}
 		this.start3D();	
 
 	},
@@ -99,6 +95,25 @@ var APP = {
 		mesh = new THREE.Mesh( geometry, material );
 		mesh.position.set( 0, 5, 0 );
 		scene.add( mesh );
+
+		//Boxes
+		material = new THREE.MeshBasicMaterial( { color: 0xff0000 } );
+		mesh = new THREE.Mesh( geometry, material );
+		mesh.position.set( 10, 5, 10 );
+		scene.add( mesh );
+		material = new THREE.MeshBasicMaterial( { color: 0x00ff00 } );
+		mesh = new THREE.Mesh( geometry, material );
+		mesh.position.set( 10, 5, -10 );
+		scene.add( mesh );
+		material = new THREE.MeshBasicMaterial( { color: 0x0000ff } );
+		mesh = new THREE.Mesh( geometry, material );
+		mesh.position.set( -10, 5, 10 );
+		scene.add( mesh );
+		material = new THREE.MeshBasicMaterial( { color: 0xffffff } );
+		mesh = new THREE.Mesh( geometry, material );
+		mesh.position.set( -10, 5, -10 );
+		scene.add( mesh );
+		//End boxes
 
 		renderer = new THREE.WebGLRenderer();
 		renderer.setPixelRatio( window.devicePixelRatio );
@@ -139,14 +154,18 @@ var APP = {
 
 		function animate(){
 			requestAnimationFrame( animate );
-			mesh.rotation.x += 0.05;
-			mesh.rotation.y += 0.01;
+			/*mesh.rotation.x += 0.05;
+			mesh.rotation.y += 0.01;*/
 
 			render();			
 		}
 
 		window.addEventListener( "resize", onWindowResize );
 		animate();
+	},
+	
+	newUser: function(){
+
 	}
 
 };
@@ -194,6 +213,8 @@ server.on_user_connected = function( msg ){
 	
 	var id = msg;
 	if(id != usr.id){ sendUserDataMsg(id); }
+
+	APP.newUser();
 }
 
 server.on_user_disconnected = function(user_id){
