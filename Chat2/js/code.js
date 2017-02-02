@@ -3,12 +3,18 @@
 
 /*************************************** Data definition ***************************************/
 /***********************************************************************************************/
+var max = 20;
+var min = -20;
+
 function User( id ){
 	if(id === undefined){ this.id = "";	}
 	else{ this.id = id; }
 	
 	this.name = "";
 	this.avatar = "url('img/avatar.jpg')";
+	this.pos = { x: Math.floor( Math.random() * ( max-min+1 )) + min, 
+				 y: 15, 
+				 z: Math.floor( Math.random() * ( max-min+1 )) + min }
 }
 
 function Message( type, user ){
@@ -23,11 +29,13 @@ function Message( type, user ){
 		this.u_id = "";
 		this.u_name = "";
 		this.u_avatar = "img/avatar.jpg";
+		this.u_pos = { x: 0, y: 15, z: 0};
 	}
 	else{
 		this.u_id = user.id;
 		this.u_name = user.name;
 		this.u_avatar = user.avatar;
+		this.u_pos = user.pos;
 	}
 	this.text = "";
 	this.time = "";
@@ -39,6 +47,7 @@ Message.prototype.toJSON = function(){
 		u_id: this.u_id,
 		u_name: this.u_name,
 		u_avatar: this.u_avatar,
+		u_pos: this.u_pos,
 		m_text: this.text,
 		m_time: this.time
 	};
@@ -49,6 +58,7 @@ Message.prototype.fromJSON = function( o ){
 	this.u_id = o.u_id;
 	this.u_name = o.u_name;
 	this.u_avatar = o.u_avatar;
+	this.u_pos = o.u_pos;
 	this.text = o.m_text;
 	this.time = o.m_time;
 }
@@ -60,6 +70,9 @@ var usr = new User();
 //posición random para la camara de cada usuario al iniciar sesion
 //
 var APP = {
+	scene: null,
+	camera: null,
+
 	init: function()
 	{
 		console.log("init APP");
@@ -69,7 +82,7 @@ var APP = {
 
 	start3D: function()
 	{
-		var mesh, camera, scene, renderer;
+		var mesh, renderer;
 
 		/*var parent = document.querySelector("#painter");
 		var rect = parent.getBoundingClientRect();*/
@@ -81,7 +94,7 @@ var APP = {
 		//contentCanvas.appendChild(container);
 
 		camera = new THREE.PerspectiveCamera( 70, width / height, 1, 10000);
-		camera.position.set( 0, 15, 35);
+		camera.position.set( usr.pos.x, usr.pos.y, usr.pos.z);
 
 		scene = new THREE.Scene();
 		scene.add( new THREE.AmbientLight( 0x404040 ) );
@@ -163,8 +176,14 @@ var APP = {
 		window.addEventListener( "resize", onWindowResize );
 		animate();
 	},
-	
-	newUser: function(){
+
+	newUser: function( user ){
+		userGeometry = new THREE.SphereGeometry( 0.3, 12, 6 );
+		userMaterial = new THREE.MeshBasicMaterial( { color: 0xffffff } );
+		var userMesh = new THREE.Mesh( userGeometry, userMaterial );
+		console.log( user.pos );
+		userMesh.position.set( user.pos.x, user.pos.y, user.pos.z );
+		scene.add( userMesh );
 
 	}
 
@@ -202,6 +221,9 @@ server.on_message = function( author_id, msg ){
 		//Receive chat message
 		receiveMsg( msg );
 	}
+	else if( m.type == "canvas3D"){
+		console.log( "Type message " +m.type );
+	}
 	else{
 		console.log("Type message error: "+m.type);
 	}
@@ -213,8 +235,6 @@ server.on_user_connected = function( msg ){
 	
 	var id = msg;
 	if(id != usr.id){ sendUserDataMsg(id); }
-
-	APP.newUser();
 }
 
 server.on_user_disconnected = function(user_id){
@@ -323,7 +343,9 @@ function newUser( msg ){
 	var m = new Message();
 	m.fromJSON( JSON.parse(msg) );
 	
-	var user = {name:m.u_name, avatar:m.u_avatar};
+	console.log( "msg de new user "+ msg);
+	var user = {name:m.u_name, avatar:m.u_avatar, pos:JSON.stringify(m.u_pos)};
+
 	roomUsers[m.u_id] = user;
 	
 	var userList = document.querySelector("#myDropdown2");
@@ -334,6 +356,9 @@ function newUser( msg ){
 	
 	//aUser = document.querySelector("#"+m.u_id);
 	aUser.addEventListener( "click", function(){ openchat(m.u_id); } );
+
+	//Create user in 3D canvas
+	APP.newUser( user );
 }
 
 function deleteUser( id ){
