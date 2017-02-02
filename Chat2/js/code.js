@@ -181,7 +181,6 @@ var APP = {
 		userGeometry = new THREE.SphereGeometry( 0.3, 12, 6 );
 		userMaterial = new THREE.MeshBasicMaterial( { color: 0xffffff } );
 		var userMesh = new THREE.Mesh( userGeometry, userMaterial );
-		console.log( user.pos );
 		userMesh.position.set( user.pos.x, user.pos.y, user.pos.z );
 		scene.add( userMesh );
 
@@ -200,8 +199,9 @@ var server = new SillyClient();
 //this method is called when the user gets connected to the server
 server.on_ready = function( id ){
 	//user connected to server
-	console.log("I'm connected with id " + id );
+	
 	usr.id = id;
+	console.log("I'm connected with id " + id + " and my position is (" + usr.pos.x +", "+ usr.pos.y + ", " + usr.pos.z+")");
 	sendUserDataMsg();
 	APP.init();
 };
