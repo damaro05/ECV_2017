@@ -342,9 +342,8 @@ function filterFunction() {
 function newUser( msg ){
 	var m = new Message();
 	m.fromJSON( JSON.parse(msg) );
-	
-	console.log( "msg de new user "+ msg);
-	var user = {name:m.u_name, avatar:m.u_avatar, pos:JSON.stringify(m.u_pos)};
+
+	var user = {name:m.u_name, avatar:m.u_avatar, pos:m.u_pos};
 
 	roomUsers[m.u_id] = user;
 	
