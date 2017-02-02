@@ -354,5 +354,5 @@ td{
 	float: right;
 	width: calc(100% - 75px);
 	height: calc(100% - 10px);
-	padding: 5px;
+	margin: 5px;
 }
