@@ -61,33 +61,19 @@ var APP = {
 	init: function()
 	{
 		console.log("init APP");
-		//2D
-/*		this.canvas_painter = new CanvasPainter("#painter");
-		this.canvas_painter.bindEvents();
-		this.canvas_painter.animete();
-
-		this.canvas_painter.onAction = function(action, parameters)
-		{
-			var json = {
-				action: action,
-				parameters: parameters
-			}
-			server.sendMessage( JSON.stringify(msg) );
-		}
-
 		server.on_message = function(id, msg)
-		{
-			var json = JSON.parse( msg );
-			this.canvas_painter.executeAction( json.action, json.parameters);
+ 		{
+ 			var json = JSON.parse( msg );
+ 			console.log( json );
+ 
+ 		}
+		this.start3D();	
 
-		}*/
-		this.start3D();
-	
 	},
 
 	start3D: function()
 	{
-		var camera, scene, renderer, mesh;
+		var mesh, camera, scene, renderer;
 
 		/*var parent = document.querySelector("#painter");
 		var rect = parent.getBoundingClientRect();*/
@@ -104,11 +90,11 @@ var APP = {
 		scene = new THREE.Scene();
 		scene.add( new THREE.AmbientLight( 0x404040 ) );
 
-		var texture = new THREE.TextureLoader().load('img/texture1.jpg');
-		//var geometry = new THREE.BoxBufferGeometry( 200, 200, 200 );
-		//var material = new THREE.MeshBasicMaterial( { map: texture } );
+		var texture = new THREE.TextureLoader().load('img/Rubik.png');
 		var geometry = new THREE.BoxGeometry( 5, 5, 5 );
-		var material = new THREE.MeshBasicMaterial( { color: 0xff0000, wireframe: true } );
+		var material = new THREE.MeshBasicMaterial( { color: 0xffffff, map: texture } );
+		//var geometry = new THREE.BoxBufferGeometry( 5, 5, 5 );
+		//var material = new THREE.MeshPhongMaterial( { color: 0xff0000, wireframe: true } );
 
 		mesh = new THREE.Mesh( geometry, material );
 		mesh.position.set( 0, 5, 0 );
@@ -136,17 +122,33 @@ var APP = {
 		controls.target.set( 0, 10, 0 );
 		controls.update();
 
-		function animate(){
-			requestAnimationFrame( animate );
-			mesh.rotation.x += 0.05;
-			mesh.rotation.y += 0.01;
+		function onWindowResize(){
+			camera.aspect = parent.clientWidth / parent.clientHeight;
+			camera.updateProjectionMatrix();
+
+			renderer.setSize( parent.clientWidth, parent.clientHeight );
+
+			//updateForWindowResize() for each light
+		}
+
+		function render(){
 
 			renderer.render( scene, camera );
 
 		}
 
+		function animate(){
+			requestAnimationFrame( animate );
+			mesh.rotation.x += 0.05;
+			mesh.rotation.y += 0.01;
+
+			render();			
+		}
+
+		window.addEventListener( "resize", onWindowResize );
 		animate();
 	}
+
 };
 /*************************************** Server ***************************************/
 /**************************************************************************************/
