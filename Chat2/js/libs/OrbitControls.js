@@ -84,6 +84,24 @@ THREE.OrbitControls = function ( object, domElement ) {
 	// public methods
 	//
 
+	//Custom methods
+	this.getPos = function() {
+	    pos = new THREE.Vector3();
+	    pos.copy( this.object.position );
+	    pos.x = Math.floor( pos.x );
+	    pos.y = Math.floor( pos.y );
+	    pos.z = Math.floor( pos.z );
+	    return pos;
+	};
+
+  	this.getCenter = function() {
+	    cent = new THREE.Vector3();
+	    cent.copy( this.center );
+	    return cent;
+	};
+
+	//End custom methods
+
 	this.getPolarAngle = function () {
 
 		return spherical.phi;

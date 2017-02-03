@@ -72,6 +72,7 @@ var usr = new User();
 var APP = {
 	scene: null,
 	camera: null,
+	userMesh: null,
 
 	init: function()
 	{
@@ -167,23 +168,51 @@ var APP = {
 
 		function animate(){
 			requestAnimationFrame( animate );
+
+			cameraPos = controls.getPos();
+			if ( usr.pos.x != cameraPos.x || usr.pos.y != cameraPos.y || usr.pos.z != cameraPos.z ){
+				//Update position
+				usr.pos = controls.getPos();
+				var msg = new Message("canvas3D", usr);
+				server.sendMessage( JSON.stringify( msg ) );
+			}else{
+
+			}
 			/*mesh.rotation.x += 0.05;
 			mesh.rotation.y += 0.01;*/
+			//console.log( roomUsers );
 
-			render();			
+			render();
 		}
 
 		window.addEventListener( "resize", onWindowResize );
 		animate();
 	},
 
-	newUser: function( user ){
+	newUser: function( user )
+	{
 		userGeometry = new THREE.SphereGeometry( 0.3, 12, 6 );
 		userMaterial = new THREE.MeshBasicMaterial( { color: 0xffffff } );
-		var userMesh = new THREE.Mesh( userGeometry, userMaterial );
+		userMesh = new THREE.Mesh( userGeometry, userMaterial );
 		userMesh.position.set( user.pos.x, user.pos.y, user.pos.z );
 		scene.add( userMesh );
 
+	},
+
+	updatePosition: function( msg )
+	{
+		var m = new Message();
+		m.fromJSON( JSON.parse(msg) );
+		roomUsers[m.u_id].pos = m.u_pos;
+
+		roomUsers.forEach(this.updateScene);
+
+	},
+
+	updateScene: function( user, index )
+	{
+		//Actualizar la mesh de cada usuario del room y borrar la userMesh
+		userMesh.position.set( user.pos.x, user.pos.y, user.pos.z );
 	}
 
 };
@@ -222,7 +251,8 @@ server.on_message = function( author_id, msg ){
 		receiveMsg( msg );
 	}
 	else if( m.type == "canvas3D"){
-		console.log( "Type message " +m.type );
+		APP.updatePosition( msg );
+		//console.log( "Type message " +m.type );
 	}
 	else{
 		console.log("Type message error: "+m.type);
