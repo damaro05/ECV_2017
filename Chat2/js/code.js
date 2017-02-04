@@ -14,7 +14,8 @@ function User( id ){
 	this.avatar = "url('img/avatar.jpg')";
 	this.pos = { x: Math.floor( Math.random() * ( max-min+1 )) + min, 
 				 y: 15, 
-				 z: Math.floor( Math.random() * ( max-min+1 )) + min }
+				 z: Math.floor( Math.random() * ( max-min+1 )) + min };
+	this.mesh = null;
 }
 
 function Message( type, user ){
@@ -30,12 +31,14 @@ function Message( type, user ){
 		this.u_name = "";
 		this.u_avatar = "img/avatar.jpg";
 		this.u_pos = { x: 0, y: 15, z: 0};
+		this.u_mesh = null;
 	}
 	else{
 		this.u_id = user.id;
 		this.u_name = user.name;
 		this.u_avatar = user.avatar;
 		this.u_pos = user.pos;
+		this.u_mesh = user.mesh;
 	}
 	this.text = "";
 	this.time = "";
@@ -48,6 +51,7 @@ Message.prototype.toJSON = function(){
 		u_name: this.u_name,
 		u_avatar: this.u_avatar,
 		u_pos: this.u_pos,
+		u_mesh: this.u_mesh,
 		m_text: this.text,
 		m_time: this.time
 	};
@@ -59,6 +63,7 @@ Message.prototype.fromJSON = function( o ){
 	this.u_name = o.u_name;
 	this.u_avatar = o.u_avatar;
 	this.u_pos = o.u_pos;
+	this.u_mesh = o.u_mesh;
 	this.text = o.m_text;
 	this.time = o.m_time;
 }
@@ -72,7 +77,6 @@ var usr = new User();
 var APP = {
 	scene: null,
 	camera: null,
-	userMesh: null,
 
 	init: function()
 	{
@@ -189,13 +193,15 @@ var APP = {
 		animate();
 	},
 
-	newUser: function( user )
+	newUser: function( user, meshId )
 	{
 		userGeometry = new THREE.SphereGeometry( 0.3, 12, 6 );
 		userMaterial = new THREE.MeshBasicMaterial( { color: 0xffffff } );
-		userMesh = new THREE.Mesh( userGeometry, userMaterial );
-		userMesh.position.set( user.pos.x, user.pos.y, user.pos.z );
-		scene.add( userMesh );
+		user.mesh = new THREE.Mesh( userGeometry, userMaterial );
+		//Should be user.id instead of user.name
+		user.mesh.name = meshId;
+		user.mesh.position.set( user.pos.x, user.pos.y, user.pos.z );
+		scene.add( user.mesh );
 
 	},
 
@@ -204,8 +210,8 @@ var APP = {
 		var m = new Message();
 		m.fromJSON( JSON.parse(msg) );
 		roomUsers[m.u_id].pos = m.u_pos;
-
-		roomUsers.forEach(this.updateScene);
+		roomUsers[m.u_id].mesh.position.set( m.u_pos.x, m.u_pos.y, m.u_pos.z );
+		//roomUsers.forEach(this.updateScene);
 
 	},
 
@@ -213,6 +219,16 @@ var APP = {
 	{
 		//Actualizar la mesh de cada usuario del room y borrar la userMesh
 		userMesh.position.set( user.pos.x, user.pos.y, user.pos.z );
+	},
+
+	deleteUserFromCanvas: function( userId )
+	{
+		var objectToRemove = scene.getObjectByName( userId );
+		scene.remove( objectToRemove );
+		/*scene.children.forEach(function(children, index){
+			if( children.name === userId )
+				//todo
+		});*/
 	}
 
 };
@@ -270,6 +286,7 @@ server.on_user_connected = function( msg ){
 server.on_user_disconnected = function(user_id){
 	//Unregister user
 	deleteUser( user_id );
+	APP.deleteUserFromCanvas( user_id );
 }
 
 server.on_close = function(){
@@ -372,7 +389,7 @@ function filterFunction() {
 function newUser( msg ){
 	var m = new Message();
 	m.fromJSON( JSON.parse(msg) );
-
+	//Aqui se puede añadir id en lugar de name para luego hacer el delete by id
 	var user = {name:m.u_name, avatar:m.u_avatar, pos:m.u_pos};
 
 	roomUsers[m.u_id] = user;
@@ -387,7 +404,7 @@ function newUser( msg ){
 	aUser.addEventListener( "click", function(){ openchat(m.u_id); } );
 
 	//Create user in 3D canvas
-	APP.newUser( user );
+	APP.newUser( user, m.u_id );
 }
 
 function deleteUser( id ){
