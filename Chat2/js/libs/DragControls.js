@@ -158,6 +158,14 @@ THREE.DragControls = function ( _objects, _camera, _domElement ) {
 	this.deactivate = deactivate;
 	this.dispose = dispose;
 
+	//Custom methods 
+
+	this.updateDrag = function( obj, index ) {
+		APP.updateDrag( obj, index );
+	}
+	
+	//End custom methods
+
 	// Backward compatibility
 
 	this.setObjects = function () {

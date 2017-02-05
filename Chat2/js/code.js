@@ -171,16 +171,23 @@ var APP = {
 			obj.rotation.y = Math.random() * 2 * Math.PI;
 			obj.rotation.z = Math.random() * 2 * Math.PI;
 
+			//Last post 
+			obj.lastPost = new THREE.Vector3();
+			obj.lastPost.copy( obj.position );
+
+			obj.name = "dragMesh"+i;
 			scene.add( obj );
 			objects.push( obj );
 		}
 
-		console.log("renderer dom");
-		console.log(renderer.domElement);
 		//Drag controls
 		var dragControls = new THREE.DragControls( objects, camera, renderer.domElement );
 		dragControls.addEventListener( 'dragstart', function( event ){ controls.enabled = false; } );
-		dragControls.addEventListener( 'dragend', function( event ){ controls.enabled = true; } );
+		dragControls.addEventListener( 'dragend', function( event ){ 
+			controls.enabled = true;
+			if(objects.length >= 1 ){
+				objects.forEach(this.updateDrag); }
+			} );
 
 		function onWindowResize(){
 			camera.aspect = parent.clientWidth / parent.clientHeight;
@@ -204,7 +211,7 @@ var APP = {
 			if ( usr.pos.x != cameraPos.x || usr.pos.y != cameraPos.y || usr.pos.z != cameraPos.z ){
 				//Update position
 				usr.pos = controls.getPos();
-				var msg = new Message("canvas3D", usr);
+				var msg = new Message("UserPosition", usr);
 				server.sendMessage( JSON.stringify( msg ) );
 			}else{
 
@@ -232,7 +239,7 @@ var APP = {
 
 	},
 
-	updatePosition: function( msg )
+	updateUserPosition: function( msg )
 	{
 		var m = new Message();
 		m.fromJSON( JSON.parse(msg) );
@@ -242,10 +249,29 @@ var APP = {
 
 	},
 
-	updateScene: function( user, index )
+	updateScene: function( obj )
 	{
-		//Actualizar la mesh de cada usuario del room y borrar la userMesh
-		userMesh.position.set( user.pos.x, user.pos.y, user.pos.z );
+		//Actualizar la mesh del objecto modificado en la scena " a lo cutre porque Message no esta pensado para objetos"	
+		var m = new Message();
+		m.fromJSON( JSON.parse(obj) );
+		objects.find( function(filter){ return filter.name === m.u_name } ).position.copy( m.u_pos );
+	},
+
+	updateDrag: function( obj, index )
+	{
+		if ( obj.lastPost.x != obj.position.x || obj.lastPost.y != obj.position.y || obj.lastPost.z != obj.position.z ){
+			console.log("position change ");
+			/*console.log("Last post " +JSON.stringify( obj.lastPost ) );
+			console.log("Current post " +JSON.stringify( obj.position ) );*/
+			obj.lastPost.copy( obj.position );
+			//Guarrada para poder enviar la posicion del que modificamos 
+			obj.pos = new THREE.Vector3();
+			obj.pos.copy( obj.position );
+			var msg = new Message("updateScene", obj);
+			server.sendMessage( JSON.stringify( msg ) );
+
+		}
+
 	},
 
 	deleteUserFromCanvas: function( userId )
@@ -281,7 +307,7 @@ server.on_ready = function( id ){
 //this methods receives messages from other users (author_id its an unique identifier)
 server.on_message = function( author_id, msg ){
 	//message received
-	console.log("user " + author_id + " said " + msg);
+	//console.log("user " + author_id + " said " + msg);
 	
 	var m = new Message();
 	m.fromJSON( JSON.parse(msg) );
@@ -293,9 +319,12 @@ server.on_message = function( author_id, msg ){
 		//Receive chat message
 		receiveMsg( msg );
 	}
-	else if( m.type == "canvas3D"){
-		APP.updatePosition( msg );
+	else if( m.type == "UserPosition"){
+		APP.updateUserPosition( msg );
 		//console.log( "Type message " +m.type );
+	}
+	else if( m.type == "updateScene"){
+		APP.updateScene( msg );
 	}
 	else{
 		console.log("Type message error: "+m.type);
