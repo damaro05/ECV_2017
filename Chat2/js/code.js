@@ -77,6 +77,7 @@ var usr = new User();
 var APP = {
 	scene: null,
 	camera: null,
+	objects: null,
 
 	init: function()
 	{
@@ -88,7 +89,11 @@ var APP = {
 	start3D: function()
 	{
 		var mesh, renderer;
-
+		objects = [];
+		/*Para el tema de la luz los objetos deben tener lo siguiente
+		object.castShadow = true;
+		object.receiveShadow = true;
+		*/
 		/*var parent = document.querySelector("#painter");
 		var rect = parent.getBoundingClientRect();*/
 		var parent = document.getElementById("3DCanvas");
@@ -131,6 +136,7 @@ var APP = {
 		mesh = new THREE.Mesh( geometry, material );
 		mesh.position.set( -10, 5, -10 );
 		scene.add( mesh );
+
 		//End boxes
 
 		renderer = new THREE.WebGLRenderer();
@@ -153,7 +159,28 @@ var APP = {
 		//	Controls
 		controls = new THREE.OrbitControls( camera, renderer.domElement );
 		controls.target.set( 0, 10, 0 );
-		controls.update();
+		
+
+		//Objects
+		for ( var i = 0; i < 10; i++ ){
+			var obj = new THREE.Mesh( geometry, new THREE.MeshLambertMaterial( { color: Math.random() * 0xffffff } ) );
+			obj.position.x = Math.random() * 100 - 50;
+			obj.position.y = 30;
+			obj.position.z = Math.random() * 80 - 40;
+			obj.rotation.x = Math.random() * 2 * Math.PI;
+			obj.rotation.y = Math.random() * 2 * Math.PI;
+			obj.rotation.z = Math.random() * 2 * Math.PI;
+
+			scene.add( obj );
+			objects.push( obj );
+		}
+
+		console.log("renderer dom");
+		console.log(renderer.domElement);
+		//Drag controls
+		var dragControls = new THREE.DragControls( objects, camera, renderer.domElement );
+		dragControls.addEventListener( 'dragstart', function( event ){ controls.enabled = false; } );
+		dragControls.addEventListener( 'dragend', function( event ){ controls.enabled = true; } );
 
 		function onWindowResize(){
 			camera.aspect = parent.clientWidth / parent.clientHeight;
@@ -165,7 +192,7 @@ var APP = {
 		}
 
 		function render(){
-
+			controls.update();
 			renderer.render( scene, camera );
 
 		}
