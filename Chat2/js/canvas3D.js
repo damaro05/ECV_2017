@@ -52,22 +52,41 @@ var APP = {
 		material = new THREE.MeshPhongMaterial( { color: 0xff0000 } );
 		mesh = new THREE.Mesh( geometry, material );
 		mesh.position.set( 10, 5, 10 );
+		mesh.castShadow = true;
+		mesh.receiveShadow = true;
 		scene.add( mesh );
+		
 		material = new THREE.MeshPhongMaterial( { color: 0x00ff00 } );
 		mesh = new THREE.Mesh( geometry, material );
 		mesh.position.set( 10, 5, -10 );
+		mesh.castShadow = true;
+		mesh.receiveShadow = true;
 		scene.add( mesh );
+		
 		material = new THREE.MeshPhongMaterial( { color: 0x0000ff } );
 		mesh = new THREE.Mesh( geometry, material );
 		mesh.position.set( -10, 5, 10 );
+		mesh.castShadow = true;
+		mesh.receiveShadow = true;
 		scene.add( mesh );
+		
 		material = new THREE.MeshPhongMaterial( { color: 0xffffff } );
 		mesh = new THREE.Mesh( geometry, material );
 		mesh.position.set( -10, 5, -10 );
+		mesh.castShadow = true;
+		mesh.receiveShadow = true;
 		scene.add( mesh );
-
 		//End boxes
+		
+		//Light
+		var spotLight = new THREE.SpotLight( 0xffffff, 1.5 );
+		spotLight.position.set( 0, 500, 0 );
+		spotLight.castShadow = true;
+		spotLight.shadowCameraNear = 20;
+        spotLight.shadowCameraFar = 50;
 
+		scene.add (spotLight);
+		
 		renderer = new THREE.WebGLRenderer();
 		renderer.setPixelRatio( window.devicePixelRatio );
 		renderer.setSize( width, height );

@@ -14,7 +14,7 @@
 						</tr>
 						<tr>
 							<td>Avatar:</td>
-							<td colspan="3"><input id="avatarUrl" type="text" name="avatarUrl" placeholder="Write image URL"/></td>
+							<td colspan="3"><!--<input id="avatarUrl" type="text" name="avatarUrl" placeholder="Write image URL"/>--></td>
 						</tr>
 						<tr>
 							<td class="avatar-td"><div class="avatar avatar-50 div-center avatar-select" style="background-image: url('img/avatar.jpg')"></div></td>
@@ -51,9 +51,9 @@
 						<span id="roomName">ROOM</span>
 					</div>
 					<div id="myDropdown1" class="dropdown-content dropdown-content1">
-						<a href="#about">Switch room</a>
-						<a href="#blog">Avatar</a>
-						<a href="#contact">Logout</a>
+						<!--<a href="">Switch room</a>
+						<a href="">Avatar</a>-->
+						<a id="logoutLink" href="">Logout</a>
 					</div>
 					
 					<div id="userList" class="dropdown dropbtn">
@@ -71,70 +71,19 @@
 					<div class="chatList">
 						<div class="hidden-scrollbar">
 							<div class="openchats">
-								<div id="chat_general" class="chat">
+								<div id="chat_general" class="chat chat-active">
 									<div class="avatar avatar-25 div-center" style="background-image: url('img/gLetter.PNG')"></div>
 									<span>General</span> 
 								</div>
-								<!--<div class="chat">
-									<div class="avatar avatar-25 div-center" style="background-image: url('img/avatar.jpg')"></div>
-									<span>User 2</span> 
-								</div> 
-								<div class="chat">
-									<div class="avatar avatar-25 div-center" style="background-image: url('img/avatar.jpg')"></div>
-									<span>User 3</span> 
-								</div>
-								<div class="chat">
-									<div class="avatar avatar-25 div-center" style="background-image: url('img/avatar.jpg')"></div>
-									<span>User 3</span> 
-								</div>
-								<div class="chat">
-									<div class="avatar avatar-25 div-center" style="background-image: url('img/avatar.jpg')"></div>
-									<span>User 3</span> 
-								</div>
-								<div class="chat">
-									<div class="avatar avatar-25 div-center" style="background-image: url('img/avatar.jpg')"></div>
-									<span>User 3</span> 
-								</div>
-								<div class="chat">
-									<div class="avatar avatar-25 div-center" style="background-image: url('img/avatar.jpg')"></div>
-									<span>User 3</span> 
-								</div><div class="chat">
-									<div class="avatar avatar-25 div-center" style="background-image: url('img/avatar.jpg')"></div>
-									<span>User 3</span> 
-								</div>
-								<div class="chat">
-									<div class="avatar avatar-25 div-center" style="background-image: url('img/avatar.jpg')"></div>
-									<span>User 3</span> 
-								</div>
-								<div class="chat">
-									<div class="avatar avatar-25 div-center" style="background-image: url('img/avatar.jpg')"></div>
-									<span>User 3</span> 
-								</div>
-								<div class="chat">
-									<div class="avatar avatar-25 div-center" style="background-image: url('img/avatar.jpg')"></div>
-									<span>Hola</span> 
-								</div><div class="chat">
-									<div class="avatar avatar-25 div-center" style="background-image: url('img/avatar.jpg')"></div>
-									<span>User 3</span> 
-								</div><div class="chat">
-									<div class="avatar avatar-25 div-center" style="background-image: url('img/avatar.jpg')"></div>
-									<span>User 3</span> 
-								</div>
-								<div class="chat">
-									<div class="avatar avatar-25 div-center" style="background-image: url('img/avatar.jpg')"></div>
-									<span>User 3</span> 
-								</div><div class="chat">
-									<div class="avatar avatar-25 div-center" style="background-image: url('img/avatar.jpg')"></div>
-									<span>User 3</span> 
-								</div>-->
 							</div>
 						</div>
 					</div>
 				
 					
 					<div class="chat-msgs">
-						<div id="chat-general-content" class="msgs"></div>
-						<div id="chat-00000-content" class="msgs"></div>
+						<div id="chatContents">
+							<div id="chat-general-content" class="msgs"></div>
+						</div>
 						<div id="writer">
 							<!--<input id="chatinput" type="text" />-->
 							<textarea id="chatinput"></textarea>

@@ -41,6 +41,7 @@ function Message( type, user ){
 		this.u_mesh = user.mesh;
 	}
 	this.text = "";
+	this.chat = "";
 	this.time = "";
 }
 
@@ -53,6 +54,7 @@ Message.prototype.toJSON = function(){
 		u_pos: this.u_pos,
 		u_mesh: this.u_mesh,
 		m_text: this.text,
+		m_chat: this.chat,
 		m_time: this.time
 	};
 }
@@ -65,6 +67,7 @@ Message.prototype.fromJSON = function( o ){
 	this.u_pos = o.u_pos;
 	this.u_mesh = o.u_mesh;
 	this.text = o.m_text;
+	this.chat = o.m_chat;
 	this.time = o.m_time;
 }
 
@@ -123,6 +126,7 @@ server.on_user_connected = function( msg ){
 	if(id != usr.id){ sendUserDataMsg(id); }
 }
 
+//this methods is called when an user is disconnected
 server.on_user_disconnected = function(user_id){
 	//Unregister user
 	deleteUser( user_id );
@@ -188,7 +192,10 @@ var dropdown2 = document.querySelector("#userList");
 var filterinput = document.querySelector("#myInput");
 var button = document.querySelector("button");
 var input = document.querySelector("#chatinput");
-var openchats = [];
+var openChats = [];
+var activeChat = "general";
+var generalChat = document.querySelector("#chat_general");
+var logout = document.querySelector("#logoutLink");7
 
 //Listeners
 dropdown1.addEventListener("click", showDropdown1);
@@ -196,6 +203,8 @@ dropdown2.addEventListener("click", showDropdown2);
 filterinput.addEventListener("keyup", filterFunction);
 button.addEventListener("click", sendMsg);
 input.onkeydown = onEnterPressed;
+generalChat.addEventListener("click", function(){ showChat("general") });
+logoutLink.addEventListener("click", logOut);
 
 //Functions
 function writeRoomName(){
@@ -240,7 +249,6 @@ function newUser( msg ){
 	aUser.innerText = m.u_name;
 	userList.appendChild( aUser );
 	
-	//aUser = document.querySelector("#"+m.u_id);
 	aUser.addEventListener( "click", function(){ openchat(m.u_id); } );
 
 	//Create user in 3D canvas
@@ -255,19 +263,53 @@ function deleteUser( id ){
 }
 
 function openchat( id ){
-	var i;
 	
-	for(i = 0; i<openchats.length ; i++){
-		if( openchats[i] === id){
-			//Abrimos nuevo chat (div en barra lateral y div en contenedor mensajes
-			break;
-		}
+	if(openChats.includes(id) == false){
+		openChats.push(id);
+		
+		createChat( id );
 	}
 	
-	
 	//visualizar el chat con el usuario pasado y ocultar el chat activo
+	showChat( id );
+}
+function createChat( id ){
+	var chatsList = document.querySelector(".openchats");
+	var divChatList = document.createElement("div");
+	var divChatListAvatar = document.createElement("div");
+	var spanUserName = document.createElement("span");
+	
+	divChatList.id = "chat_" + id;
+	divChatList.className = "chat";
+	divChatListAvatar.className = "avatar avatar-25 div-center";
+	divChatListAvatar.style = "background-image: " + roomUsers[id].avatar;
+	spanUserName.innerText = roomUsers[id].name;
+	
+	divChatList.appendChild( divChatListAvatar );
+	divChatList.appendChild( spanUserName );
+	chatsList.appendChild( divChatList );
+	
+	var divChatsContent = document.querySelector("#chatContents");
+	var divChat = document.createElement("div");
+	divChat.id = "chat-"+id+"-content";
+	divChat.className = "msgs";
+	divChatsContent.appendChild( divChat );
+	
+	divChatList.addEventListener("click", function(){ showChat(id) });
+	
+	openChats.push(id);
 }
 
+function showChat( id ){
+	//Ocultar chat anterior
+	document.querySelector("#chat_" + activeChat).classList.toggle("chat-active");
+	document.querySelector("#chat-" + activeChat + "-content").style.display = "none";
+	//Mostrar nuevo chat activo
+	document.querySelector("#chat_" + id).classList.toggle("chat-active");
+	document.querySelector("#chat-" + id + "-content").style.display = "block";
+	
+	activeChat = id;
+}
 
 //Message functions
 //-- Add message in messages box
@@ -305,7 +347,18 @@ function addMsgs( message, received=false ){
 	msg.appendChild(divAvatar);
 	msg.appendChild(divInfo);
 
-	var msgs = document.querySelector("#chat-general-content"); //MODIFICAR EL NOMBRE SEGUN EL CHAT ACTIVO
+	var msgs;
+	if(message.chat === "general") msgs = document.querySelector("#chat-general-content");
+	else{
+		if(received){
+			if(!openChats.includes(message.u_id)){ createChat( message.u_id ); }
+			msgs = document.querySelector("#chat-"+message.u_id+"-content");
+		}
+		else{
+			msgs = document.querySelector("#chat-"+activeChat+"-content");
+		}
+	}
+	
 	//Add message in msgs box
 	msgs.appendChild( msg );
 	//Auto scroll when user send a message
@@ -329,11 +382,13 @@ function sendMsg(){
 		var d = new Date();
 		var m = new Message( "msg", usr );
 		m.text = text;
+		m.chat = activeChat;
 		m.time = d.getTime();
 		addMsgs( m );
 		
 		//Send message to server
-		server.sendMessage( JSON.stringify( m ) );
+		if(activeChat === "general"){	server.sendMessage( JSON.stringify( m ) ); }
+		else{ server.sendMessage( JSON.stringify( m ), activeChat ); }
 	}
 }
 
@@ -356,4 +411,7 @@ function receiveMsg( message ){
 
 function logOut(){
 	reconnect = false;
+	server.close();
+	document.querySelector("#main").style.display = "none";
+	document.querySelector("#login-main").style.display = "block";
 }

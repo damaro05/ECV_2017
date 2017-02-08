@@ -244,6 +244,9 @@ td{
 	background-color: #804d00;
 	color: white;
 }
+.chat-active{
+	background-color: #b36b00;
+}
 
 .chat-msgs{
 	min-height: 300px;
