@@ -398,6 +398,7 @@ function onEnterPressed( event ){
 		sendMsg();
 		var input = document.querySelector("#chatinput");
 		input.value = input.value.trim();
+		event.preventDefault();
 	}
 }
 

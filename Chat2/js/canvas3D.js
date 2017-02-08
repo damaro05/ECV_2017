@@ -166,8 +166,8 @@ var APP = {
 			}else{
 
 			}
-			/*mesh.rotation.x += 0.05;
-			mesh.rotation.y += 0.01;*/
+			mesh.rotation.x += 0.05;
+			mesh.rotation.y += 0.01;
 			//console.log( roomUsers );
 
 			render();
