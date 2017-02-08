@@ -179,8 +179,8 @@ var APP = {
 
 	newUser: function( user, meshId )
 	{
-		userGeometry = new THREE.SphereGeometry( 0.3, 12, 6 );
-		userMaterial = new THREE.MeshPhongMaterial( { color: 0xffffff } );
+		userGeometry = new THREE.SphereGeometry( 0.8, 12, 12 );
+		userMaterial = new THREE.MeshPhongMaterial( { color: 0xff9900 } );
 		user.mesh = new THREE.Mesh( userGeometry, userMaterial );
 		//Should be user.id instead of user.name
 		user.mesh.name = meshId;
