@@ -151,12 +151,16 @@ server.on_close = function(){
 /******************************************************************************************/
 var loginbutton = document.querySelector("#login-btn");
 var avatar = document.querySelectorAll(".avatar-50");
+var roleOption = document.querySelectorAll("#role");
+var role = roleOption[0].value;
+var teacherName = document.querySelector("#teacherName");
 
 //Listeners
 loginbutton.addEventListener("click", login);
 for( var i = 0; i < avatar.length; i++){
 	avatar[i].addEventListener("click", selectAvatar);
 }
+roleOption[0].addEventListener("change", selectRole);
 
 //Functions
 function login(){
@@ -184,6 +188,18 @@ function selectAvatar(){
 	this.classList.add("avatar-select");
 }
 
+function selectRole(){
+	role = roleOption[0].value;
+	var divLogin = document.querySelector(".login-intern");
+	if( role === "student"){
+		teacherName.classList.remove("oculto");
+		divLogin.style.height = 240;
+	}
+	else{
+		teacherName.classList.add("oculto");
+		divLogin.style.height = 220;
+	}
+}
 
 /*************************************** Main page ***************************************/
 /*****************************************************************************************/
@@ -199,8 +215,8 @@ var logout = document.querySelector("#logoutLink");7
 
 //Listeners
 dropdown1.addEventListener("click", showDropdown1);
-dropdown2.addEventListener("click", showDropdown2);
-filterinput.addEventListener("keyup", filterFunction);
+//dropdown2.addEventListener("click", showDropdown2);
+//filterinput.addEventListener("keyup", filterFunction);
 button.addEventListener("click", sendMsg);
 input.onkeydown = onEnterPressed;
 generalChat.addEventListener("click", function(){ showChat("general") });

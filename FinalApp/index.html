@@ -13,6 +13,19 @@
 							<td colspan="3"><input id="user" type="text" name="username" placeholder="Write your username"/></td>
 						</tr>
 						<tr>
+							<td>Role:</td>
+							<td colspan="3">
+								<select id="role">
+									<option value="student" selected>Student</option>
+									<option value="teacher">Teacher</option>
+								</select>
+							</td>
+						</tr>
+						<tr id="teacherName">
+							<td>Teacher:</td>
+							<td colspan="3"><input id="userTeacher" type="text" name="teacherName" placeholder="Write teacher username"/></td>
+						</tr>
+						<tr>
 							<td>Avatar:</td>
 							<td colspan="3"><!--<input id="avatarUrl" type="text" name="avatarUrl" placeholder="Write image URL"/>--></td>
 						</tr>
@@ -45,14 +58,12 @@
 			<div class="chat-general">
 				
 				<!----- Header ----->
-				<div class="header">
+				<!--<div class="header">
 					<div id="menu" class="dropdown dropbtn">
 						<img src="img/menuIcon.png" width="20" height="20"/>
 						<span id="roomName">ROOM</span>
 					</div>
 					<div id="myDropdown1" class="dropdown-content dropdown-content1">
-						<!--<a href="">Switch room</a>
-						<a href="">Avatar</a>-->
 						<a id="logoutLink" href="">Logout</a>
 					</div>
 					
@@ -63,8 +74,52 @@
 					<div id="myDropdown2" class="dropdown-content dropdown-content2">
 						<input type="text" placeholder="Search.." id="myInput">
 					</div>
+				</div>-->
+				<div id="menu" class="header dropdown dropbtn">
+					<table class="menuTable">
+						<tr>
+							<td rowspan="2"><img src="img/menuIcon.png" width="20" height="20"/></td>
+							<td>APP NAME</td>
+						</tr>
+						<tr>
+							<td><span id="roomName">ROOM</span></td>
+						</tr>
+					</table>
+				</div>
+				<div id="myDropdown1" class="dropdown-content dropdown-content1">
+					<a id="logoutLink" href="">Logout</a>
 				</div>
 				<!----- End Header ----->
+				
+				<!----- Options ----->
+				<div id="options">
+					<table>
+						<tr>
+							<td colspan="5"><b>Systems</b></td>
+						</tr>
+						<tr>
+							<td>
+								<!--<img id="" class="system-icon" src="img/skin.png" alt=""/>-->
+								<div class="avatar system-icon" style="background-image: url('img/skin.png')"></div>
+							</td>
+							<td><img id="" class="system-icon" src="img/muscle.jpg" alt=""/></td>
+							<td><img id="" class="system-icon" src="img/skeleton.png" alt=""/></td>
+							<td><img id="" class="system-icon" src="img/skeleton.png" alt=""/></td>
+							<td><img id="" class="system-icon" src="img/skeleton.png" alt=""/></td>
+						</tr>
+						<tr>
+							<td><img id="" class="system-icon" src="img/skeleton.png" alt=""/></td>
+							<td><img id="" class="system-icon" src="img/skeleton.png" alt=""/></td>
+							<td><img id="" class="system-icon" src="img/skeleton.png" alt=""/></td>
+							<td><img id="" class="system-icon" src="img/skeleton.png" alt=""/></td>
+							<td><img id="" class="system-icon" src="img/skeleton.png" alt=""/></td>
+						</tr>
+						<tr id="blockStudents">
+							<td colspan="5"><input type="checkbox" name="" value=""/>Block students</td>
+						</tr>
+					</table>
+				</div>
+				<!----- End Options ----->
 				
 				<!----- Chat Content ----->
 				<div class="chat-content">
@@ -103,10 +158,16 @@
 			
 			<!-- Canvas -->
 			<div class="canvas-general">
-				<div class="canvas-menu"></div>
+				<!--<div class="canvas-menu"></div>-->
 				<div id="3DCanvas" class="canvas-content"></div>
 			</div>
 			<!-- End Canvas -->
+			
+			<!-- Information -->
+			<div id="information">
+				<iframe class="infoFrame" src="https://en.wikipedia.org/wiki/Human_body"></iframe>
+			</div>
+			<!-- End Information -->
 			
 		</div>
 		<!----- End Main ----->

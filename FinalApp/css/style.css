@@ -5,6 +5,7 @@
 
 body{
 	font-family: Verdana, Geneva, sans-serif;
+	min-width: 800px;
 }
 td{
 	vertical-align: middle;
@@ -35,7 +36,7 @@ td{
 	border: 1px solid black;
 }
 .avatar-td{
-	height: 70px;
+	height: 55px;
 }
 .avatar-msg{
 	float:left;
@@ -86,7 +87,7 @@ td{
 	background-color: #ff9900;
 	border: 2px solid black;
 	width: 350px;
-	height: 230px;
+	height: 240px;
 	margin: auto;
 	padding: 5px;
 }
@@ -126,6 +127,9 @@ td{
 	text-align: center;
 }
 
+.oculto{
+	display: none;
+}
 /********************* Main page styles *********************/
 #main{
 	display: none;
@@ -136,23 +140,22 @@ td{
 
 
 .chat-general{
-	width: 300px;
+	width: 250px;
 	min-height: 300px;
 	height: 100%;
 	float: left;
-	border-right: 1px solid #e0e0d1;
+	#border-right: 1px solid #e0e0d1;
 }
 
 .header{
-	background-color: black;
-	width: 100%;
-	height: 4.5%;
+	width: calc(100% - 20px);;
+	height: 35px;
 }
-#menu{
+/*#menu{
 	float: left;
 	#min-width: 180px;
 	width: 56%;
-}
+}*/
 #userList{
 	min-width: 92px;
 	float: none;
@@ -160,7 +163,7 @@ td{
 .dropbtn {
     background-color: black;
     color: white;
-    padding: 8px 10px 8px 10px;
+    padding: 2px 10px 3px 10px;
     font-size: 16px;
     border: none;
     cursor: pointer;
@@ -190,7 +193,7 @@ td{
 .dropdown-content1{
 	#margin-top: 8px;
     #margin-left: -9px;
-	margin-top: 39px;
+	#margin-top: 39px;
     margin-left: 1px;
 }
 .dropdown-content2{
@@ -207,18 +210,25 @@ td{
 }
 .dropdown-content a:hover {background-color: #ddd}
 .show {display:block;}
+#roomName{ font-size: x-small; }
+.menuTable{
+	color: white;
+}
+.menuTable td{
+	padding: 0px 5px 0px 5px;
+}
 
 .chat-content{
 	width: 100%;
-	height: 90%;
+	height: calc(100% - 40px - 110px - 17px);
 	min-height: 200px;
 	display: inline-block;
 }
 .chatList{
 	background-color: #ff9900;
-	min-height: 300px;
+	#min-height: 300px;
 	height: 100%;
-	width: 64px;
+	width: 50px;
 	float: left;
 	position:relative;
 	font-size: x-small;
@@ -249,7 +259,7 @@ td{
 }
 
 .chat-msgs{
-	min-height: 300px;
+	#min-height: 300px;
 	height: 100%;
 	float: none;
 	font-size: small;
@@ -327,6 +337,22 @@ td{
 	height: 90%
 }
 
+#options{
+	background-color: #2e3030;
+	text-align: center;
+}
+#options table{
+	text-align: center;
+	font-size: small;
+	width: 100%;
+	color: white;
+}
+
+.system-icon{
+	width: 30px;
+	height: 30px;
+	margin: 2px auto 2px auto;
+}
 
 .footer{
 	/*width: 300px;
@@ -342,20 +368,34 @@ td{
 
 .canvas-general{
 	height: 100%;
-	width: calc(100% - 300px);
-	margin-left: 300px;
+	min-width: 300px;
+	width: calc(100% - 250px - 250px);
+	#margin-left: 300px;
 	background-color: #2e3030;
+	float:left;
 }
 .canvas-menu{
 	float: left;
-	width: 60px;
+	width: 10px;
 	height: calc(100% - 2px);
 	border-right: 2px solid black;
 	padding: 1px;
 }
 .canvas-content{
 	float: right;
-	width: calc(100% - 75px);
+	#width: calc(100% - 24px);
+	width: calc(100% - 10px);
 	height: calc(100% - 10px);
 	margin: 5px;
+}
+
+#information{
+	float: left;
+	width: 250px;
+	height: 100%;
+}
+.infoFrame{
+	width: 100%;
+	height: 100%;
+	border: 0px;
 }
