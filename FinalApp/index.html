@@ -67,7 +67,7 @@
 						<a id="logoutLink" href="">Logout</a>
 					</div>
 					
-					<div id="userList" class="dropdown dropbtn">
+					<div id="userList" class="header dropdown dropbtn">
 						<img src="img/menuIcon.png" width="20" height="20"/>
 						<span>Users</span>
 					</div>
@@ -98,21 +98,18 @@
 							<td colspan="5"><b>Systems</b></td>
 						</tr>
 						<tr>
-							<td>
-								<!--<img id="" class="system-icon" src="img/skin.png" alt=""/>-->
-								<div class="avatar system-icon" style="background-image: url('img/skin.png')"></div>
-							</td>
-							<td><img id="" class="system-icon" src="img/muscle.jpg" alt=""/></td>
-							<td><img id="" class="system-icon" src="img/skeleton.png" alt=""/></td>
-							<td><img id="" class="system-icon" src="img/skeleton.png" alt=""/></td>
-							<td><img id="" class="system-icon" src="img/skeleton.png" alt=""/></td>
+							<td><div id="" class="avatar system-icon" style="background-image: url('img/skin.png')"></div></td>
+							<td><div id="" class="avatar system-icon" style="background-image: url('img/muscle.jpg')"></div></td>
+							<td><div id="" class="avatar system-icon" style="background-image: url('img/skeleton.png')"></div></td>
+							<td><div id="" class="avatar system-icon" style="background-image: url('img/skeleton.png')"></div></td>
+							<td><div id="" class="avatar system-icon" style="background-image: url('img/skeleton.png')"></div></td>
 						</tr>
 						<tr>
-							<td><img id="" class="system-icon" src="img/skeleton.png" alt=""/></td>
-							<td><img id="" class="system-icon" src="img/skeleton.png" alt=""/></td>
-							<td><img id="" class="system-icon" src="img/skeleton.png" alt=""/></td>
-							<td><img id="" class="system-icon" src="img/skeleton.png" alt=""/></td>
-							<td><img id="" class="system-icon" src="img/skeleton.png" alt=""/></td>
+							<td><div id="" class="avatar system-icon" style="background-image: url('img/skeleton.png')"></div></td>
+							<td><div id="" class="avatar system-icon" style="background-image: url('img/skeleton.png')"></div></td>
+							<td><div id="" class="avatar system-icon" style="background-image: url('img/skeleton.png')"></div></td>
+							<td><div id="" class="avatar system-icon" style="background-image: url('img/skeleton.png')"></div></td>
+							<td><div id="" class="avatar system-icon" style="background-image: url('img/skeleton.png')"></div></td>
 						</tr>
 						<tr id="blockStudents">
 							<td colspan="5"><input type="checkbox" name="" value=""/>Block students</td>
@@ -120,6 +117,19 @@
 					</table>
 				</div>
 				<!----- End Options ----->
+				
+				<div id="userList" class="header2 dropdown dropbtn">
+					<table class="menuTable">
+						<tr>
+							<td><img src="img/menuIcon.png" width="20" height="20"/></td>
+							<td>Users</td>
+							<td>(<span id="connectedUsers">0</span>)</td>
+						</tr>
+					</table>
+				</div>
+				<div id="myDropdown2" class="dropdown-content dropdown-content1">
+					<input type="text" placeholder="Search.." id="myInput">
+				</div>
 				
 				<!----- Chat Content ----->
 				<div class="chat-content">
@@ -158,16 +168,18 @@
 			
 			<!-- Canvas -->
 			<div class="canvas-general">
-				<!--<div class="canvas-menu"></div>-->
 				<div id="3DCanvas" class="canvas-content"></div>
+				
+				<!-- Information -->
+				<div id="information">
+					<iframe class="infoFrame" src="https://es.wikipedia.org/"></iframe>
+				</div>
+				<!-- End Information -->
+
 			</div>
 			<!-- End Canvas -->
 			
-			<!-- Information -->
-			<div id="information">
-				<iframe class="infoFrame" src="https://en.wikipedia.org/wiki/Human_body"></iframe>
-			</div>
-			<!-- End Information -->
+			
 			
 		</div>
 		<!----- End Main ----->

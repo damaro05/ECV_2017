@@ -148,8 +148,12 @@ td{
 }
 
 .header{
-	width: calc(100% - 20px);;
+	width: calc(100% - 20px);
 	height: 35px;
+}
+.header2{
+	width: calc(100% - 20px);
+	height: 28px;
 }
 /*#menu{
 	float: left;
@@ -163,7 +167,7 @@ td{
 .dropbtn {
     background-color: black;
     color: white;
-    padding: 2px 10px 3px 10px;
+    padding: 2px 10px 2px 10px;
     font-size: 16px;
     border: none;
     cursor: pointer;
@@ -369,7 +373,7 @@ td{
 .canvas-general{
 	height: 100%;
 	min-width: 300px;
-	width: calc(100% - 250px - 250px);
+	width: calc(100% - 250px);
 	#margin-left: 300px;
 	background-color: #2e3030;
 	float:left;
@@ -382,16 +386,17 @@ td{
 	padding: 1px;
 }
 .canvas-content{
-	float: right;
+	float: left;
 	#width: calc(100% - 24px);
-	width: calc(100% - 10px);
+	width: calc(55% - 14px);
 	height: calc(100% - 10px);
 	margin: 5px;
 }
 
 #information{
 	float: left;
-	width: 250px;
+	min-width: 250px;
+	width: 45%;
 	height: 100%;
 }
 .infoFrame{

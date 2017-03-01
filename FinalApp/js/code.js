@@ -215,8 +215,8 @@ var logout = document.querySelector("#logoutLink");7
 
 //Listeners
 dropdown1.addEventListener("click", showDropdown1);
-//dropdown2.addEventListener("click", showDropdown2);
-//filterinput.addEventListener("keyup", filterFunction);
+dropdown2.addEventListener("click", showDropdown2);
+filterinput.addEventListener("keyup", filterFunction);
 button.addEventListener("click", sendMsg);
 input.onkeydown = onEnterPressed;
 generalChat.addEventListener("click", function(){ showChat("general") });
