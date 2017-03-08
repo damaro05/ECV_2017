@@ -162,8 +162,11 @@ THREE.DragControls = function ( _objects, _camera, _domElement ) {
 
 	this.updateDrag = function( obj, index ) {
 		APP.updateDrag( obj, index );
-	}
+	};
 	
+	this.detailView = function( obj, index )  {
+		APP.changeAnatomyMesh( obj );
+	};
 	//End custom methods
 
 	// Backward compatibility

@@ -100,6 +100,14 @@ THREE.OrbitControls = function ( object, domElement ) {
 	    return cent;
 	};
 
+	this.setPosition = function( pos ){
+		this.object.position.copy( pos );
+	}
+
+	this.setTargetPosition = function( pos ){
+		this.target.copy( pos );
+	}
+
 	//End custom methods
 
 	this.getPolarAngle = function () {

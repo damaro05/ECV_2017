@@ -6,6 +6,10 @@ var APP = {
 	scene: null,
 	camera: null,
 	objects: null,
+	options: null,
+	spotLight: null,
+	dirLight: null,
+
 
 	init: function()
 	{
@@ -32,12 +36,14 @@ var APP = {
 		//contentCanvas.appendChild(container);
 
 		camera = new THREE.PerspectiveCamera( 70, width / height, 1, 10000);
-		camera.position.set( usr.pos.x, usr.pos.y, usr.pos.z);
+		// camera.position.set( usr.pos.x, usr.pos.y, usr.pos.z);
+		camera.position.set( 0, 7, 66 );
 
 		scene = new THREE.Scene();
 		scene.add( new THREE.AmbientLight( 0x404040 ) );
 
-		var texture = new THREE.TextureLoader().load('img/Rubik.png');
+
+/*		var texture = new THREE.TextureLoader().load('img/Rubik.png');
 		var geometry = new THREE.BoxGeometry( 5, 5, 5 );
 		var material = new THREE.MeshPhongMaterial( { color: 0xffffff, map: texture } );
 		//var geometry = new THREE.BoxBufferGeometry( 5, 5, 5 );
@@ -76,16 +82,8 @@ var APP = {
 		mesh.castShadow = true;
 		mesh.receiveShadow = true;
 		scene.add( mesh );
-		//End boxes
+		//End boxes*/
 		
-		//Light
-		var spotLight = new THREE.SpotLight( 0xffffff, 1.5 );
-		spotLight.position.set( 0, 500, 0 );
-		spotLight.castShadow = true;
-		spotLight.shadowCameraNear = 20;
-        spotLight.shadowCameraFar = 50;
-
-		scene.add (spotLight);
 		
 		renderer = new THREE.WebGLRenderer();
 		renderer.setPixelRatio( window.devicePixelRatio );
@@ -93,7 +91,7 @@ var APP = {
 		//renderer.shadowMap.enabled = true;
 		parent.appendChild( renderer.domElement );
 
-		//Ground
+/*		//Ground
 		var groundGeometry = new THREE.BoxGeometry( 10, 0.15, 10);
 		var groundMaterial = new THREE.MeshPhongMaterial({
 			color: 0xa0adaf,
@@ -104,40 +102,134 @@ var APP = {
 		ground.scale.multiplyScalar( 3 );
 		ground.receiveShadow = true;
 		scene.add( ground );
-
+*/
 		//	Controls
 		controls = new THREE.OrbitControls( camera, renderer.domElement );
 		controls.target.set( 0, 10, 0 );
+
+		//Light
+		spotLight = new THREE.SpotLight( 0xffffff, 1.5 );
+		spotLight.position.set( 0, 500, 0 );
+		spotLight.castShadow = true;
+		spotLight.shadowCameraNear = 20;
+        spotLight.shadowCameraFar = 50;
+
+		dirLight = new THREE.DirectionalLight( 0xffffff, 0.5 );
+		dirLight.position.set( 0, 20, 0 );
 		
-
+		scene.add ( spotLight );
+		// scene.add ( dirLight );
 		//Objects
-		for ( var i = 0; i < 10; i++ ){
-			var obj = new THREE.Mesh( geometry, new THREE.MeshLambertMaterial( { color: Math.random() * 0xffffff, side: THREE.DoubleSide } ) );
-			obj.position.x = Math.random() * 100 - 50;
-			obj.position.y = 30;
-			obj.position.z = Math.random() * 80 - 40;
-			obj.rotation.x = Math.random() * 2 * Math.PI;
-			obj.rotation.y = Math.random() * 2 * Math.PI;
-			obj.rotation.z = Math.random() * 2 * Math.PI;
+		// for ( var i = 0; i < 10; i++ ){
+		// 	var obj = new THREE.Mesh( geometry, new THREE.MeshLambertMaterial( { color: Math.random() * 0xffffff, side: THREE.DoubleSide } ) );
+		// 	obj.position.x = Math.random() * 100 - 50;
+		// 	obj.position.y = 30;
+		// 	obj.position.z = Math.random() * 80 - 40;
+		// 	obj.rotation.x = Math.random() * 2 * Math.PI;
+		// 	obj.rotation.y = Math.random() * 2 * Math.PI;
+		// 	obj.rotation.z = Math.random() * 2 * Math.PI;
 
-			//Last post 
-			obj.lastPost = new THREE.Vector3();
-			obj.lastPost.copy( obj.position );
+		// 	//Last post 
+		// 	obj.lastPost = new THREE.Vector3();
+		// 	obj.lastPost.copy( obj.position );
 
-			obj.name = "dragMesh"+i;
-			//obj.castShadow = true;
-			scene.add( obj );
-			objects.push( obj );
-		}
+		// 	obj.name = "dragMesh"+i;
+		// 	//obj.castShadow = true;
+		// 	scene.add( obj );
+		// 	objects.push( obj );
+		// }
+
+		//systems 
+		var objLoader = new THREE.OBJLoader();
+		// objLoader.setPath( '' );
+		objLoader.load( 'meshes/internal_skelout_full.obj', function( object ){
+			object.position.y = -40;
+			scene.add( object );
+		});
+
+		objLoader.load( 'meshes/male.obj', function( object ){
+			object.position.y = -40;
+			object.position.x = 150;
+			scene.add( object );
+		});
+		objLoader.load( 'meshes/skeleton.obj', function( object ){
+			object.position.y = -40;
+			object.position.x = 300;
+			scene.add( object );
+		});
+
+
+		//Detail systems
+/*		objLoader.load( 'meshes/heart.obj', function( object ){
+			object.position.y = 0;
+			object.position.x = -150;
+			scene.add( object );
+		});
+		objLoader.load( 'meshes/skull.obj', function( object ){
+			object.position.y = 0;
+			object.position.x = -300;
+			scene.add( object );
+		});
+		objLoader.load( 'meshes/femur.obj', function( object ){
+			object.position.y = 0;
+			object.position.x = -450;
+			scene.add( object );
+		});*/
+
+		//Detail meshes
+		var dhGeometry = new THREE.SphereGeometry( 0.8, 12, 12 );
+		var dhMaterial = new THREE.MeshPhongMaterial( { color: 0xff9900 } );
+		var dHeart = new THREE.Mesh( dhGeometry, dhMaterial );
+		dHeart.position.set( 3, 19, 4 );
+		dHeart.name = 20;
+		dHeart.lastPost = new THREE.Vector3();
+		dHeart.lastPost.copy( dHeart.position );
+
+		var dSkull = new THREE.Mesh( dhGeometry, dhMaterial );
+		dSkull.position.set( 3, 19, 4 );
+		dSkull.name = 21;
+		dSkull.lastPost = new THREE.Vector3();
+		dSkull.lastPost.copy( dSkull.position );
+
+		var dFemur = new THREE.Mesh( dhGeometry, dhMaterial );
+		dFemur.position.set( 305, -10, 0 );
+		dFemur.name = 22;
+		dFemur.lastPost = new THREE.Vector3();
+		dFemur.lastPost.copy( dFemur.position );
+
+		
+		scene.add( dHeart );
+		scene.add( dSkull );
+		scene.add( dFemur );
+		objects.push( dHeart );
+		objects.push( dSkull );
+		objects.push( dFemur );
+
+		//Buttons
+		options = document.createElement( 'div' );
+		options.style.position = 'absolute';
+		options.style.bottom = '30px';
+		options.style.width = '45px';
+		options.style.marginLeft = '25px';
+		options.style.textAlign = 'center';
+		options.style.color = 'white';
+		options.innerHTML = 'Points: <input type="button" onclick="APP.centerUp();" value=" ^ " />\
+									 <input type="button" onclick="APP.centerDown();" value=" v " />';
+
+		parent.appendChild( options );
 
 		//Drag controls
 		var dragControls = new THREE.DragControls( objects, camera, renderer.domElement );
-		dragControls.addEventListener( 'dragstart', function( event ){ controls.enabled = false; } );
+		dragControls.addEventListener( 'dragstart', function( event ){ 
+			controls.enabled = false;
+			this.detailView( event.object );
+		});
 		dragControls.addEventListener( 'dragend', function( event ){ 
 			controls.enabled = true;
 			if(objects.length >= 1 ){
-				objects.forEach(this.updateDrag); }
-			} );
+				objects.forEach( this.updateDrag ); }
+		});
+
 
 		function onWindowResize(){
 			camera.aspect = parent.clientWidth / parent.clientHeight;
@@ -161,15 +253,15 @@ var APP = {
 			if ( usr.pos.x != cameraPos.x || usr.pos.y != cameraPos.y || usr.pos.z != cameraPos.z ){
 				//Update position
 				usr.pos = controls.getPos();
+				//Update light
+				dirLight.position.set( usr.pos.x, usr.pos.y , usr.pos.z );
 				var msg = new Message("UserPosition", usr);
 				server.sendMessage( JSON.stringify( msg ) );
 			}else{
 
 			}
-			mesh.rotation.x += 0.05;
-			mesh.rotation.y += 0.01;
-			//console.log( roomUsers );
-
+			// mesh.rotation.x += 0.05;
+			// mesh.rotation.y += 0.01;
 			render();
 		}
 
@@ -232,6 +324,75 @@ var APP = {
 			if( children.name === userId )
 				//todo
 		});*/
-	}
+	},
+
+	centerUp: function()
+	{
+		controls.target.y += 5;
+	},
+
+	centerDown: function()
+	{
+		controls.target.y -=5;
+	},
+
+	changeAnatomyMesh: function( object )
+	{
+		var size, id, targetpos, controlpos;
+		var isDetail = false;
+		var infoFrame;
+		//When the paramether is mouseevent
+		if( "srcElement" in object ){
+			size = object.srcElement.id.length;
+			id = parseInt( object.srcElement.id[size-1] );
+		}else {
+			id = parseInt( object.name );
+			console.log( 'id ' + id );
+			isDetail = true;
+			infoFrame = document.querySelector( "#infoFrame" );
+		}
+
+		switch( id ){
+			case 1:
+				targetpos = new THREE.Vector3(0,10,0);
+				controlpos = new THREE.Vector3(0,10,66);
+				break;
+			case 2:
+				targetpos = new THREE.Vector3(150,10,0);
+				controlpos = new THREE.Vector3(150,10,66);
+				break;
+			case 3:
+				targetpos = new THREE.Vector3(300,10,0);
+				controlpos = new THREE.Vector3(300,10,66);
+				break;
+				//Detail systems
+			case 20:
+			//Heart
+				infoFrame.src = "heart.html";
+				// targetpos = new THREE.Vector3(-150,10,0);
+				// controlpos = new THREE.Vector3(-150,10,150);
+				break;
+			case 21:
+			//Skull
+				targetpos = new THREE.Vector3(-300,10,0);
+				controlpos = new THREE.Vector3(-300,10,150);
+				break;
+			case 22:
+			//Femur
+				infoFrame.src = "femur.html";
+				// targetpos = new THREE.Vector3(-450,10,0);
+				// controlpos = new THREE.Vector3(-450,10,150);
+				break;
+			default:
+				console.log( "Error: Invalid element selected" );
+				break;
+		}
+
+		if( isDetail )
+			return;
+		controls.setTargetPosition( targetpos );
+		controls.setPosition( controlpos );
+		dirLight.target.position.copy( targetpos );
+	},
 
 };

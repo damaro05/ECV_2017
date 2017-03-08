@@ -155,6 +155,8 @@ var roleOption = document.querySelectorAll("#role");
 var role = roleOption[0].value;
 var teacherName = document.querySelector("#teacherName");
 
+var systemIcons = document.querySelectorAll(".system-icon");
+
 //Listeners
 loginbutton.addEventListener("click", login);
 for( var i = 0; i < avatar.length; i++){
@@ -162,6 +164,9 @@ for( var i = 0; i < avatar.length; i++){
 }
 roleOption[0].addEventListener("change", selectRole);
 
+for( var i = 0; i < systemIcons.length; i++ ){
+	systemIcons[i].addEventListener( 'click', APP.changeAnatomyMesh , systemIcons[i]);
+}
 //Functions
 function login(){
 	var u_name = document.querySelector("#user");
