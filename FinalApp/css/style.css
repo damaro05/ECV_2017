@@ -127,6 +127,15 @@ td{
 	text-align: center;
 }
 
+.app-name{
+	position: absolute;
+	top: 50px;
+	width: 100%;
+	text-align: center;
+	font-size: 94px;
+	font-family: 'Lobster', cursive;
+}
+
 .oculto{
 	display: none;
 }
@@ -144,7 +153,7 @@ td{
 	min-height: 300px;
 	height: 100%;
 	float: left;
-	#border-right: 1px solid #e0e0d1;
+	border-right: 1px solid black;
 }
 
 .header{
@@ -214,7 +223,7 @@ td{
 }
 .dropdown-content a:hover {background-color: #ddd}
 .show {display:block;}
-#roomName{ font-size: x-small; }
+.room{ font-size: x-small; }
 .menuTable{
 	color: white;
 }
@@ -224,7 +233,7 @@ td{
 
 .chat-content{
 	width: 100%;
-	height: calc(100% - 40px - 110px - 17px);
+	height: calc(100% - 40px - 110px - 32px - 17px);
 	min-height: 200px;
 	display: inline-block;
 }
@@ -257,6 +266,7 @@ td{
 .chat:hover{
 	background-color: #804d00;
 	color: white;
+	cursor: pointer;
 }
 .chat-active{
 	background-color: #b36b00;
@@ -298,7 +308,7 @@ td{
 	border-bottom: 1px solid black;
 }
 .msg-date{
-	width: 40%;
+	#width: 40%;
     vertical-align: top;
     display: inline-block;
     *display: inline;
@@ -344,6 +354,7 @@ td{
 #options{
 	background-color: #2e3030;
 	text-align: center;
+	height: 110px;
 }
 #options table{
 	text-align: center;
@@ -373,7 +384,7 @@ td{
 .canvas-general{
 	height: 100%;
 	min-width: 300px;
-	width: calc(100% - 250px);
+	width: calc(100% - 251px);
 	#margin-left: 300px;
 	background-color: #2e3030;
 	float:left;
@@ -391,6 +402,24 @@ td{
 	width: calc(55% - 14px);
 	height: calc(100% - 10px);
 	margin: 5px;
+}
+#canvasCameraControl{
+	position: absolute;
+	margin-left: 8px;
+	bottom: 8px;
+}
+#canvasCameraControl table{
+	text-align: center;
+}
+.btn-control{
+	background-color: #2e3030;
+    color: white;
+    opacity: 0.6;
+}
+.btn-control:hover{
+    color: white;
+    opacity: 0.9;
+	cursor: pointer;
 }
 
 #information{

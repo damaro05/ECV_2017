@@ -12,6 +12,7 @@ function User( id ){
 	
 	this.name = "";
 	this.avatar = "url('img/avatar.jpg')";
+	this.isTeacher = false;
 	this.pos = { x: Math.floor( Math.random() * ( max-min+1 )) + min, 
 				 y: 15, 
 				 z: Math.floor( Math.random() * ( max-min+1 )) + min };
@@ -30,6 +31,7 @@ function Message( type, user ){
 		this.u_id = "";
 		this.u_name = "";
 		this.u_avatar = "img/avatar.jpg";
+		this.u_isTeacher = false;
 		this.u_pos = { x: 0, y: 15, z: 0};
 		this.u_mesh = null;
 	}
@@ -37,6 +39,7 @@ function Message( type, user ){
 		this.u_id = user.id;
 		this.u_name = user.name;
 		this.u_avatar = user.avatar;
+		this.u_isTeacher = user.isTeacher;
 		this.u_pos = user.pos;
 		this.u_mesh = user.mesh;
 	}
@@ -51,6 +54,7 @@ Message.prototype.toJSON = function(){
 		u_id: this.u_id,
 		u_name: this.u_name,
 		u_avatar: this.u_avatar,
+		u_isTeacher: this.u_isTeacher,
 		u_pos: this.u_pos,
 		u_mesh: this.u_mesh,
 		m_text: this.text,
@@ -64,6 +68,7 @@ Message.prototype.fromJSON = function( o ){
 	this.u_id = o.u_id;
 	this.u_name = o.u_name;
 	this.u_avatar = o.u_avatar;
+	this.u_isTeacher = o.u_isTeacher;
 	this.u_pos = o.u_pos;
 	this.u_mesh = o.u_mesh;
 	this.text = o.m_text;
@@ -74,12 +79,33 @@ Message.prototype.fromJSON = function( o ){
 var usr = new User();
 /*************************************** Server ***************************************/
 /**************************************************************************************/
-var room_name = "ADSM";
+var room_name = "abelsebas2";
+var app_name = "Anatomy learning";
 var roomUsers = [];
+var teacherUser;
+var numUsers = 0;
 var timer = null;
 var reconnect = true;
 var server = new SillyClient();
 //server.connect("84.89.136.194:9000", room_name);
+
+//Returns a report with information about clients connected and rooms open
+var infoServ;
+function getReport( on_complete ){
+	var req = new XMLHttpRequest();
+	req.open('GET', "http://84.89.136.194:9000/info", true);
+	req.onreadystatechange = function (aEvt) {
+	  if (req.readyState == 4) {
+		 if(req.status != 200)
+			return console.error("Error getting report: ", req.responseText );
+		 var resp = JSON.parse(req.responseText);
+		 if(on_complete)
+			 on_complete( resp );
+	  }
+	};
+	req.send(null);
+}
+getReport(function(report){ infoServ=report; });
 
 //this method is called when the user gets connected to the server
 server.on_ready = function( id ){
@@ -138,12 +164,12 @@ server.on_close = function(){
 	//this methods is called when the server gets closed (its shutdown)
 	
 	//Reconexión al servidor por si se cae la red
-	if( reconnect ){
+	/*if( reconnect ){
 		setTimeout(function(){
 			server.connect("84.89.136.194:9000", room_name);
 		}, 3000);
 		sendUserDataMsg();
-	}
+	}*/
 };
 
 
@@ -157,6 +183,9 @@ var teacherName = document.querySelector("#teacherName");
 
 var systemIcons = document.querySelectorAll(".system-icon");
 
+var appNameSpan = document.querySelector("#appName");
+appNameSpan.innerText = app_name;
+
 //Listeners
 loginbutton.addEventListener("click", login);
 for( var i = 0; i < avatar.length; i++){
@@ -167,21 +196,65 @@ roleOption[0].addEventListener("change", selectRole);
 for( var i = 0; i < systemIcons.length; i++ ){
 	systemIcons[i].addEventListener( 'click', APP.changeAnatomyMesh , systemIcons[i]);
 }
+
 //Functions
 function login(){
+	//getReport(function(report){ infoServ=report; });
 	var u_name = document.querySelector("#user");
+	var teacher = document.querySelector("#userTeacher");
 	
-	if(u_name.value.trim().length > 0 ){
-		usr.name = u_name.value;
-		var l = document.querySelector("#login-main");
-		l.style.display = "none"
-		writeRoomName();
-		var m = document.querySelector("#main");
-		m.style.display = "block";
-		var c = document.querySelector("#chat-general-content");
-		c.style.display = "block";
-		
-		server.connect("84.89.136.194:9000", room_name);
+	if(u_name.value.trim().length > 0){
+		if(role === "student"){
+			if(teacher.value.trim().length > 0){
+				if(infoServ["rooms"][room_name+"-"+teacher.value]!==undefined){
+					usr.name = u_name.value;
+					var l = document.querySelector("#login-main");
+					l.style.display = "none"
+					writeRoomName();
+					var m = document.querySelector("#main");
+					m.style.display = "block";
+					var c = document.querySelector("#chat-general-content");
+					c.style.display = "block";
+					
+					room_name=room_name+"-"+teacher.value;
+					//server.close();
+					server.connect("84.89.136.194:9000", room_name);
+					writeRoomName(room_name);
+					var u = document.querySelector("#userList");
+					u.style.display = "none";
+					var c = document.querySelector(".chat-content");
+					c.style.height = "calc(100% - 40px - 110px - 17px)";
+					var b = document.querySelector("#blockStudents");
+					b.style.display = "none";
+				}
+				else{
+					alert("Teacher's name is not in the system");
+				}
+			}
+			else{
+				alert("Teacher name is empty");
+			}
+		}
+		else{ //is a teacher
+			usr.name = u_name.value;
+			usr.isTeacher = true;
+			
+			var l = document.querySelector("#login-main");
+			l.style.display = "none"
+			writeRoomName();
+			var m = document.querySelector("#main");
+			m.style.display = "block";
+			var c = document.querySelector("#chat-general-content");
+			c.style.display = "block";
+			
+			room_name=room_name+"-"+usr.name;
+			//server.close();
+			server.connect("84.89.136.194:9000", room_name);
+			writeRoomName(room_name);
+		}
+	}
+	else{
+		alert("Username is empty");
 	}
 }
 
@@ -217,6 +290,9 @@ var openChats = [];
 var activeChat = "general";
 var generalChat = document.querySelector("#chat_general");
 var logout = document.querySelector("#logoutLink");7
+
+var appName2Span = document.querySelector("#appName2");
+appName2Span.innerText = app_name;
 
 //Listeners
 dropdown1.addEventListener("click", showDropdown1);
@@ -271,7 +347,13 @@ function newUser( msg ){
 	userList.appendChild( aUser );
 	
 	aUser.addEventListener( "click", function(){ openchat(m.u_id); } );
-
+	
+	numUsers++;
+	var connectedUsersSpan = document.querySelector("#connectedUsers");
+	connectedUsersSpan.innerText = numUsers;
+	
+	if(m.u_isTeacher) createChat(m.u_id);
+	
 	//Create user in 3D canvas
 	APP.newUser( user, m.u_id );
 }
@@ -279,6 +361,10 @@ function newUser( msg ){
 function deleteUser( id ){
 	var del = document.getElementById(id);
 	del.remove();
+	
+	numUsers--;
+	var connectedUsersSpan = document.querySelector("#connectedUsers");
+	connectedUsersSpan.innerText = numUsers;
 	
 	delete roomUsers[id];
 }

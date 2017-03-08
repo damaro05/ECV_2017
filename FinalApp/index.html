@@ -1,10 +1,15 @@
 <html>
 	<head>
+		<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+		<link href="https://fonts.googleapis.com/css?family=Lobster" rel="stylesheet">
 		<link href="css/style.css" rel="stylesheet">
 	</head>
 	<body>
 		<!----- Login ----->
 		<div id="login-main">
+			<div class="app-name">
+				<span id="appName"></span>
+			</div>
 			<div class="login-middle">
 				<div class="login-intern">
 					<table>
@@ -54,35 +59,19 @@
 		
 		<!----- Main ----->
 		<div id="main">
+		
 			<!----- Chat ----->
 			<div class="chat-general">
 				
 				<!----- Header ----->
-				<!--<div class="header">
-					<div id="menu" class="dropdown dropbtn">
-						<img src="img/menuIcon.png" width="20" height="20"/>
-						<span id="roomName">ROOM</span>
-					</div>
-					<div id="myDropdown1" class="dropdown-content dropdown-content1">
-						<a id="logoutLink" href="">Logout</a>
-					</div>
-					
-					<div id="userList" class="header dropdown dropbtn">
-						<img src="img/menuIcon.png" width="20" height="20"/>
-						<span>Users</span>
-					</div>
-					<div id="myDropdown2" class="dropdown-content dropdown-content2">
-						<input type="text" placeholder="Search.." id="myInput">
-					</div>
-				</div>-->
 				<div id="menu" class="header dropdown dropbtn">
 					<table class="menuTable">
 						<tr>
 							<td rowspan="2"><img src="img/menuIcon.png" width="20" height="20"/></td>
-							<td>APP NAME</td>
+							<td><span id="appName2"></span></td>
 						</tr>
 						<tr>
-							<td><span id="roomName">ROOM</span></td>
+							<td class="room">(<span id="roomName">ROOM</span>)</td>
 						</tr>
 					</table>
 				</div>
@@ -169,7 +158,26 @@
 			<!-- Canvas -->
 			<div class="canvas-general">
 				<div id="3DCanvas" class="canvas-content"></div>
-				
+				<div id="canvasCameraControl">
+					<table>
+						<tr>
+							<td rowspan="2" id="leftControl" class="btn-control">
+								<span class="material-icons">keyboard_arrow_left</span>
+							</td>
+							<td id="upControl" class="btn-control">
+								<span class="material-icons">keyboard_arrow_up</span>
+							</td>
+							<td rowspan="2"  id="rightControl" class="btn-control">
+								<span class="material-icons">keyboard_arrow_right</span>
+							</td>
+						</tr>
+						<tr>
+							<td id="downControl" class="btn-control">
+								<span class="material-icons">keyboard_arrow_down</span>
+							</td>
+						</tr>
+					</table>
+				</div>
 				<!-- Information -->
 				<div id="information">
 					<iframe class="infoFrame" id="infoFrame" src="https://es.wikipedia.org/"></iframe>
@@ -178,8 +186,6 @@
 
 			</div>
 			<!-- End Canvas -->
-			
-			
 			
 		</div>
 		<!----- End Main ----->
