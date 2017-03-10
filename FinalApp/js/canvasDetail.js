@@ -3,14 +3,15 @@
 var canvasDetail = {
 	mesh: null,
 
-	init: function( obj )
+	init: function( obj, mtl )
 	{
 		console.log( 'init canvas detail in ' );
 		console.log( obj );
-		this.start3D( obj );
+		console.log( mtl );
+		this.start3D( obj, mtl );
 	},
 
-	start3D: function( obj )
+	start3D: function( obj, mtl )
 	{
 		var parent = document.getElementById("canvasDetail");
 		var width = parent.clientWidth;
@@ -30,14 +31,31 @@ var canvasDetail = {
 		controls = new THREE.OrbitControls( camera, renderer.domElement );
 		controls.target.set( 0, 10, 0 );
 
+		var mtlLoader = new THREE.MTLLoader();
 		var objLoader = new THREE.OBJLoader();
 
+		if( mtl ){
+			mtlLoader.load( 'meshes/'+mtl+'.mtl', function( materials ) {
+				materials.preload();
+				objLoader.setMaterials( materials );
+			});
+		}
+
+
+		objLoader.load( 'meshes/'+obj+'.obj', function ( object ) {
+			object.position.set( 0, 0, 0 );
+			this.mesh = object;
+			scene.add( this.mesh );
+		});
+
+
+/*		var objLoader = new THREE.OBJLoader();
 		var filepath = 'meshes/'+obj+".obj";
 		objLoader.load( filepath, function( object ){
 			object.position.set( 0, 0, 0 );
 			this.mesh = object;
 			scene.add( this.mesh );
-		});
+		});*/
 
 		//Light
 		spotLight = new THREE.SpotLight( 0xffffff, 1.5 );
@@ -60,7 +78,7 @@ var canvasDetail = {
 
 		function animate(){
 			requestAnimationFrame( animate );
-			this.mesh.rotation.x += 0.0005;
+			// this.mesh.rotation.x += 0.0005;
 			this.mesh.rotation.y += 0.01;
 			render();
 		}

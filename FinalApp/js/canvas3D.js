@@ -181,6 +181,7 @@ var APP = {
 		//Detail meshes
 		var dhGeometry = new THREE.SphereGeometry( 0.8, 12, 12 );
 		var dhMaterial = new THREE.MeshPhongMaterial( { color: 0xff9900 } );
+		
 		var dHeart = new THREE.Mesh( dhGeometry, dhMaterial );
 		dHeart.position.set( 3, 19, 4 );
 		dHeart.name = 20;
@@ -188,7 +189,7 @@ var APP = {
 		dHeart.lastPost.copy( dHeart.position );
 
 		var dSkull = new THREE.Mesh( dhGeometry, dhMaterial );
-		dSkull.position.set( 3, 19, 4 );
+		dSkull.position.set( 300, 37, 2 );
 		dSkull.name = 21;
 		dSkull.lastPost = new THREE.Vector3();
 		dSkull.lastPost.copy( dSkull.position );
@@ -199,13 +200,21 @@ var APP = {
 		dFemur.lastPost = new THREE.Vector3();
 		dFemur.lastPost.copy( dFemur.position );
 
+		var dHand = new THREE.Mesh( dhGeometry, dhMaterial );
+		dHand.position.set( 129.5, 1, -1 );
+		dHand.name = 23;
+		dHand.lastPost = new THREE.Vector3();
+		dHand.lastPost.copy( dHand.position );
+
 		
 		scene.add( dHeart );
 		scene.add( dSkull );
 		scene.add( dFemur );
+		scene.add( dHand );
 		objects.push( dHeart );
 		objects.push( dSkull );
 		objects.push( dFemur );
+		objects.push( dHand );
 
 		//Buttons
 		/*options = document.createElement( 'div' );
@@ -305,6 +314,7 @@ var APP = {
 	{
 		if ( obj.lastPost.x != obj.position.x || obj.lastPost.y != obj.position.y || obj.lastPost.z != obj.position.z ){
 			console.log("position change ");
+			console.log( obj.position );
 			/*console.log("Last post " +JSON.stringify( obj.lastPost ) );
 			console.log("Current post " +JSON.stringify( obj.position ) );*/
 			obj.lastPost.copy( obj.position );
@@ -386,14 +396,18 @@ var APP = {
 				break;
 			case 21:
 			//Skull
-				targetpos = new THREE.Vector3(-300,10,0);
-				controlpos = new THREE.Vector3(-300,10,150);
+				infoFrame.src = "skull.html";
+				// targetpos = new THREE.Vector3(-300,10,0);
+				// controlpos = new THREE.Vector3(-300,10,150);
 				break;
 			case 22:
 			//Femur
 				infoFrame.src = "femur.html";
 				// targetpos = new THREE.Vector3(-450,10,0);
 				// controlpos = new THREE.Vector3(-450,10,150);
+				break;
+			case 23:
+				infoFrame.src = "hand.html";
 				break;
 			default:
 				console.log( "Error: Invalid element selected" );
