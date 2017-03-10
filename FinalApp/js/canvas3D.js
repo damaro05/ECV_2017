@@ -9,11 +9,13 @@ var APP = {
 	options: null,
 	spotLight: null,
 	dirLight: null,
+	movementPoints: null,
 
 
 	init: function()
 	{
 		console.log("init APP");
+		movementPoints = 3;
 		this.start3D();	
 
 	},
@@ -206,7 +208,7 @@ var APP = {
 		objects.push( dFemur );
 
 		//Buttons
-		options = document.createElement( 'div' );
+		/*options = document.createElement( 'div' );
 		options.style.position = 'absolute';
 		options.style.bottom = '30px';
 		options.style.width = '45px';
@@ -216,7 +218,7 @@ var APP = {
 		options.innerHTML = 'Points: <input type="button" onclick="APP.centerUp();" value=" ^ " />\
 									 <input type="button" onclick="APP.centerDown();" value=" v " />';
 
-		parent.appendChild( options );
+		parent.appendChild( options );*/
 
 		//Drag controls
 		var dragControls = new THREE.DragControls( objects, camera, renderer.domElement );
@@ -328,12 +330,22 @@ var APP = {
 
 	centerUp: function()
 	{
-		controls.target.y += 5;
+		controls.target.y += movementPoints;
 	},
 
 	centerDown: function()
 	{
-		controls.target.y -=5;
+		controls.target.y -= movementPoints;
+	},
+
+	centerRight: function()
+	{
+		controls.target.x += movementPoints;
+	},
+
+	centerLeft: function()
+	{
+		controls.target.x -= movementPoints;
 	},
 
 	changeAnatomyMesh: function( object )

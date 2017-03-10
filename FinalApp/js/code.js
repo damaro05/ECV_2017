@@ -523,3 +523,16 @@ function logOut(){
 	document.querySelector("#main").style.display = "none";
 	document.querySelector("#login-main").style.display = "block";
 }
+
+
+/*************************************** Canvas ***************************************/
+/*****************************************************************************************/
+var upControl = document.querySelector("#upControl");
+var downControl = document.querySelector("#downControl");
+var leftControl = document.querySelector("#leftControl");
+var rightControl = document.querySelector("#rightControl");
+
+upControl.addEventListener("click", APP.centerUp);
+downControl.addEventListener("click", APP.centerDown);
+leftControl.addEventListener("click", APP.centerLeft);
+rightControl.addEventListener("click", APP.centerRight);
