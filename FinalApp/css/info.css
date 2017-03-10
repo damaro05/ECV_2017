@@ -1,0 +1,31 @@
+*{
+	padding: 0;
+	margin: 0;
+}
+
+body{
+	font-family: Verdana, Geneva, sans-serif;
+	#border-left: 1px solid black;
+	text-align: center;
+	background-color: #666666;
+}
+
+img{
+	width: 200px;
+	height: 200px;
+}
+
+p{
+	margin: 5px 0px 5px 0px;
+	text-align: justify;
+	font-size: small;
+}
+
+.content{
+	width: 96%;
+	margin: 0px auto 0px auto;
+}
+
+.center{
+	margin: auto;
+}

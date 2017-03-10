@@ -389,13 +389,6 @@ td{
 	background-color: #2e3030;
 	float:left;
 }
-.canvas-menu{
-	float: left;
-	width: 10px;
-	height: calc(100% - 2px);
-	border-right: 2px solid black;
-	padding: 1px;
-}
 .canvas-content{
 	float: left;
 	#width: calc(100% - 24px);
@@ -427,6 +420,7 @@ td{
 	min-width: 250px;
 	width: 45%;
 	height: 100%;
+	border-left: 1px solid black;
 }
 .infoFrame{
 	width: 100%;
