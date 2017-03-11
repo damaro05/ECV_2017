@@ -88,9 +88,9 @@ THREE.OrbitControls = function ( object, domElement ) {
 	this.getPos = function() {
 	    pos = new THREE.Vector3();
 	    pos.copy( this.object.position );
-	    pos.x = Math.floor( pos.x );
-	    pos.y = Math.floor( pos.y );
-	    pos.z = Math.floor( pos.z );
+	    // pos.x = Math.floor( pos.x );
+	    // pos.y = Math.floor( pos.y );
+	    // pos.z = Math.floor( pos.z );
 	    return pos;
 	};
 
@@ -98,6 +98,12 @@ THREE.OrbitControls = function ( object, domElement ) {
 	    cent = new THREE.Vector3();
 	    cent.copy( this.center );
 	    return cent;
+	};
+
+	this.getTargetPos = function() {
+		pos = new THREE.Vector3();
+		pos.copy( this.target );
+		return pos;
 	};
 
 	this.setPosition = function( pos ){

@@ -16,6 +16,7 @@ function User( id ){
 	this.pos = { x: Math.floor( Math.random() * ( max-min+1 )) + min, 
 				 y: 15, 
 				 z: Math.floor( Math.random() * ( max-min+1 )) + min };
+	this.target = { x: 0, y: 0, z: 0 };
 	this.mesh = null;
 }
 
@@ -33,6 +34,7 @@ function Message( type, user ){
 		this.u_avatar = "img/avatar.jpg";
 		this.u_isTeacher = false;
 		this.u_pos = { x: 0, y: 15, z: 0};
+		this.u_target = { x: 0, y: 0, z: 0};
 		this.u_mesh = null;
 	}
 	else{
@@ -41,6 +43,7 @@ function Message( type, user ){
 		this.u_avatar = user.avatar;
 		this.u_isTeacher = user.isTeacher;
 		this.u_pos = user.pos;
+		this.u_target = user.target;
 		this.u_mesh = user.mesh;
 	}
 	this.text = "";
@@ -56,6 +59,7 @@ Message.prototype.toJSON = function(){
 		u_avatar: this.u_avatar,
 		u_isTeacher: this.u_isTeacher,
 		u_pos: this.u_pos,
+		u_target: this.u_target,
 		u_mesh: this.u_mesh,
 		m_text: this.text,
 		m_chat: this.chat,
@@ -70,6 +74,7 @@ Message.prototype.fromJSON = function( o ){
 	this.u_avatar = o.u_avatar;
 	this.u_isTeacher = o.u_isTeacher;
 	this.u_pos = o.u_pos;
+	this.u_target = o.u_target;
 	this.u_mesh = o.u_mesh;
 	this.text = o.m_text;
 	this.chat = o.m_chat;
@@ -336,7 +341,7 @@ function newUser( msg ){
 	var m = new Message();
 	m.fromJSON( JSON.parse(msg) );
 	//Aqui se puede añadir id en lugar de name para luego hacer el delete by id
-	var user = {name:m.u_name, avatar:m.u_avatar, pos:m.u_pos};
+	var user = {name:m.u_name, avatar:m.u_avatar, pos:m.u_pos, target:m.u_target};
 
 	roomUsers[m.u_id] = user;
 	

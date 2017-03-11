@@ -266,6 +266,10 @@ var APP = {
 				usr.pos = controls.getPos();
 				//Update light
 				dirLight.position.set( usr.pos.x, usr.pos.y , usr.pos.z );
+				//Temporal target pos on change
+				usr.target = controls.getTargetPos();
+				console.log( "animate ");
+				console.log( usr.target );
 				var msg = new Message("UserPosition", usr);
 				server.sendMessage( JSON.stringify( msg ) );
 			}else{
@@ -288,7 +292,7 @@ var APP = {
 		//Should be user.id instead of user.name
 		user.mesh.name = meshId;
 		user.mesh.position.set( user.pos.x, user.pos.y, user.pos.z );
-		scene.add( user.mesh );
+		// scene.add( user.mesh );
 
 	},
 
@@ -298,8 +302,13 @@ var APP = {
 		m.fromJSON( JSON.parse(msg) );
 		roomUsers[m.u_id].pos = m.u_pos;
 		roomUsers[m.u_id].mesh.position.set( m.u_pos.x, m.u_pos.y, m.u_pos.z );
-		//roomUsers.forEach(this.updateScene);
-
+		//Update camera and usr pos to avoid noise
+		controls.setPosition( m.u_pos );
+		usr.pos = m.u_pos;
+		
+		//Temporal solution for user target position
+		usr.target = m.u_target;
+		controls.setTargetPosition( m.u_target );
 	},
 
 	updateScene: function( obj )
