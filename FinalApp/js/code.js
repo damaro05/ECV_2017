@@ -155,6 +155,11 @@ server.on_user_connected = function( msg ){
 	
 	var id = msg;
 	if(id != usr.id){ sendUserDataMsg(id); }
+
+	if( usr.isTeacher ){
+		var msg = new Message("UserPosition", usr);
+		server.sendMessage( JSON.stringify( msg ) );
+	}
 }
 
 //this methods is called when an user is disconnected

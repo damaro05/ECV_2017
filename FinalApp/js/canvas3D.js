@@ -268,15 +268,15 @@ var APP = {
 				dirLight.position.set( usr.pos.x, usr.pos.y , usr.pos.z );
 				//Temporal target pos on change
 				usr.target = controls.getTargetPos();
-				console.log( "animate ");
-				console.log( usr.target );
+
+				if( !usr.isTeacher )
+					return;
 				var msg = new Message("UserPosition", usr);
 				server.sendMessage( JSON.stringify( msg ) );
 			}else{
 
 			}
-			// mesh.rotation.x += 0.05;
-			// mesh.rotation.y += 0.01;
+
 			render();
 		}
 
@@ -302,6 +302,7 @@ var APP = {
 		m.fromJSON( JSON.parse(msg) );
 		roomUsers[m.u_id].pos = m.u_pos;
 		roomUsers[m.u_id].mesh.position.set( m.u_pos.x, m.u_pos.y, m.u_pos.z );
+		
 		//Update camera and usr pos to avoid noise
 		controls.setPosition( m.u_pos );
 		usr.pos = m.u_pos;
@@ -400,20 +401,14 @@ var APP = {
 			case 20:
 			//Heart
 				infoFrame.src = "heart.html";
-				// targetpos = new THREE.Vector3(-150,10,0);
-				// controlpos = new THREE.Vector3(-150,10,150);
 				break;
 			case 21:
 			//Skull
 				infoFrame.src = "skull.html";
-				// targetpos = new THREE.Vector3(-300,10,0);
-				// controlpos = new THREE.Vector3(-300,10,150);
 				break;
 			case 22:
 			//Femur
 				infoFrame.src = "femur.html";
-				// targetpos = new THREE.Vector3(-450,10,0);
-				// controlpos = new THREE.Vector3(-450,10,150);
 				break;
 			case 23:
 				infoFrame.src = "hand.html";

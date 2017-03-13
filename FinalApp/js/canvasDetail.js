@@ -2,12 +2,12 @@
 
 var canvasDetail = {
 	mesh: null,
+	isloaded: null,
 
 	init: function( obj, mtl )
 	{
 		console.log( 'init canvas detail in ' );
-		console.log( obj );
-		console.log( mtl );
+		isloaded = false;
 		this.start3D( obj, mtl );
 	},
 
@@ -46,16 +46,8 @@ var canvasDetail = {
 			object.position.set( 0, 0, 0 );
 			this.mesh = object;
 			scene.add( this.mesh );
+			this.isloaded = true;
 		});
-
-
-/*		var objLoader = new THREE.OBJLoader();
-		var filepath = 'meshes/'+obj+".obj";
-		objLoader.load( filepath, function( object ){
-			object.position.set( 0, 0, 0 );
-			this.mesh = object;
-			scene.add( this.mesh );
-		});*/
 
 		//Light
 		spotLight = new THREE.SpotLight( 0xffffff, 1.5 );
@@ -78,9 +70,12 @@ var canvasDetail = {
 
 		function animate(){
 			requestAnimationFrame( animate );
-			// this.mesh.rotation.x += 0.0005;
-			this.mesh.rotation.y += 0.01;
+
 			render();
+
+			if( !this.isloaded )
+				return;
+			this.mesh.rotation.y += 0.01;
 		}
 
 		window.addEventListener( "resize", onWindowResize );
