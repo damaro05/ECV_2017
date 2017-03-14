@@ -110,7 +110,7 @@ var APP = {
 		controls.target.set( 0, 10, 0 );
 
 		//Light
-		spotLight = new THREE.SpotLight( 0xffffff, 1.5 );
+		spotLight = new THREE.SpotLight( 0xffffff, 1 );
 		spotLight.position.set( 0, 500, 0 );
 		spotLight.castShadow = true;
 		spotLight.shadowCameraNear = 20;
@@ -120,7 +120,7 @@ var APP = {
 		dirLight.position.set( 0, 20, 0 );
 		
 		scene.add ( spotLight );
-		// scene.add ( dirLight );
+		scene.add ( dirLight );
 		//Objects
 		// for ( var i = 0; i < 10; i++ ){
 		// 	var obj = new THREE.Mesh( geometry, new THREE.MeshLambertMaterial( { color: Math.random() * 0xffffff, side: THREE.DoubleSide } ) );
@@ -144,19 +144,19 @@ var APP = {
 		//systems 
 		var objLoader = new THREE.OBJLoader();
 		// objLoader.setPath( '' );
-		objLoader.load( 'meshes/internal_skelout_full.obj', function( object ){
-			object.position.y = -40;
-			scene.add( object );
-		});
 
 		objLoader.load( 'meshes/male.obj', function( object ){
 			object.position.y = -40;
-			object.position.x = 150;
+			scene.add( object );
+		});
+		objLoader.load( 'meshes/internal_skelout_full.obj', function( object ){
+			object.position.y = -40;
+			object.position.x = 45000;
 			scene.add( object );
 		});
 		objLoader.load( 'meshes/skeleton.obj', function( object ){
 			object.position.y = -40;
-			object.position.x = 300;
+			object.position.x = 30000;
 			scene.add( object );
 		});
 
@@ -183,30 +183,29 @@ var APP = {
 		var dhMaterial = new THREE.MeshPhongMaterial( { color: 0xff9900 } );
 		
 		var dHeart = new THREE.Mesh( dhGeometry, dhMaterial );
-		dHeart.position.set( 3, 19, 4 );
+		dHeart.position.set( 45003, 19, 4 );
 		dHeart.name = 20;
 		dHeart.lastPost = new THREE.Vector3();
 		dHeart.lastPost.copy( dHeart.position );
 
 		var dSkull = new THREE.Mesh( dhGeometry, dhMaterial );
-		dSkull.position.set( 300, 37, 2 );
+		dSkull.position.set( 30000, 37, 2 );
 		dSkull.name = 21;
 		dSkull.lastPost = new THREE.Vector3();
 		dSkull.lastPost.copy( dSkull.position );
 
 		var dFemur = new THREE.Mesh( dhGeometry, dhMaterial );
-		dFemur.position.set( 305, -10, 0 );
+		dFemur.position.set( 30005, -10, 0 );
 		dFemur.name = 22;
 		dFemur.lastPost = new THREE.Vector3();
 		dFemur.lastPost.copy( dFemur.position );
 
 		var dHand = new THREE.Mesh( dhGeometry, dhMaterial );
-		dHand.position.set( 129.5, 1, -1 );
+		dHand.position.set( -20.5, 1, -1 );
 		dHand.name = 23;
 		dHand.lastPost = new THREE.Vector3();
 		dHand.lastPost.copy( dHand.position );
 
-		
 		scene.add( dHeart );
 		scene.add( dSkull );
 		scene.add( dFemur );
@@ -373,6 +372,8 @@ var APP = {
 		var size, id, targetpos, controlpos;
 		var isDetail = false;
 		var infoFrame;
+
+		infoFrame = document.querySelector( "#infoFrame" );
 		//When the paramether is mouseevent
 		if( "srcElement" in object ){
 			size = object.srcElement.id.length;
@@ -381,22 +382,60 @@ var APP = {
 			id = parseInt( object.name );
 			console.log( 'id ' + id );
 			isDetail = true;
-			infoFrame = document.querySelector( "#infoFrame" );
 		}
 
 		switch( id ){
 			case 1:
 				targetpos = new THREE.Vector3(0,10,0);
 				controlpos = new THREE.Vector3(0,10,66);
+				infoFrame.src = "infoPages/integumentary/";
 				break;
 			case 2:
-				targetpos = new THREE.Vector3(150,10,0);
-				controlpos = new THREE.Vector3(150,10,66);
+				targetpos = new THREE.Vector3(15000,10,0);
+				controlpos = new THREE.Vector3(15000,10,66);
+				infoFrame.src = "infoPages/muscular/";
 				break;
 			case 3:
-				targetpos = new THREE.Vector3(300,10,0);
-				controlpos = new THREE.Vector3(300,10,66);
+				targetpos = new THREE.Vector3(30000,10,0);
+				controlpos = new THREE.Vector3(30000,10,66);
+				infoFrame.src = "infoPages/skeletal/";
 				break;
+			case 4:
+				targetpos = new THREE.Vector3(45000,10,0);
+				controlpos = new THREE.Vector3(45000,10,66);
+				infoFrame.src = "infoPages/cardiovascular/"
+				break;
+			case 5:
+				targetpos = new THREE.Vector3(60000,10,0);
+				controlpos = new THREE.Vector3(60000,10,66);
+				infoFrame.src = "infoPages/respiratory/"
+				break;
+			case 6:
+				targetpos = new THREE.Vector3(75000,10,0);
+				controlpos = new THREE.Vector3(75000,10,66);
+				infoFrame.src = "infoPages/digestive/"
+				break;
+			case 7:
+				targetpos = new THREE.Vector3(90000,10,0);
+				controlpos = new THREE.Vector3(90000,10,66);
+				infoFrame.src = "infoPages/renal/"
+				break;
+			case 8:
+				targetpos = new THREE.Vector3(105000,10,0);
+				controlpos = new THREE.Vector3(105000,10,66);
+				infoFrame.src = "infoPages/reproductive/"
+				break;
+			case 9:
+				targetpos = new THREE.Vector3(125000,10,0);
+				controlpos = new THREE.Vector3(125000,10,66);
+				infoFrame.src = "infoPages/nervous/"
+				break;
+			case 0:
+				targetpos = new THREE.Vector3(135000,10,0);
+				controlpos = new THREE.Vector3(135000,10,66);
+				infoFrame.src = "infoPages/lymphatic/"
+				break;
+
 				//Detail systems
 			case 20:
 			//Heart
@@ -422,7 +461,10 @@ var APP = {
 			return;
 		controls.setTargetPosition( targetpos );
 		controls.setPosition( controlpos );
+		spotLight.position.set( -targetpos.x, 500, 0 );
+		spotLight.target.position.copy( targetpos ); 
 		dirLight.target.position.copy( targetpos );
+		dirLight.position.set( controlpos.x, controlpos.y, controlpos.z );
 	},
 
 };
