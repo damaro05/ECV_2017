@@ -309,6 +309,12 @@ var APP = {
 		//Temporal solution for user target position
 		usr.target = m.u_target;
 		controls.setTargetPosition( m.u_target );
+
+		//Update lights position
+		spotLight.position.set( -m.u_target.x, 500, 0 );
+		spotLight.target.position.copy( m.u_target )
+		dirLight.target.position.copy( m.u_target );
+		dirLight.position.set( usr.pos.x, usr.pos.y, usr.pos.z );
 	},
 
 	updateScene: function( obj )
