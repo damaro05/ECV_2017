@@ -5,9 +5,7 @@
 
 body{
 	font-family: Verdana, Geneva, sans-serif;
-	#border-left: 1px solid black;
 	text-align: center;
-	background-color: #666666;
 }
 
 img{
@@ -15,15 +13,25 @@ img{
 	height: 200px;
 }
 
-p{
+p, ul{
 	margin: 5px 0px 5px 0px;
 	text-align: justify;
 	font-size: small;
 }
 
+ul{
+	list-style-position:inside;
+	margin-left: 20px;
+}
+
+a{
+	color: white;
+}
+
 .content{
 	width: 96%;
-	margin: 0px auto 0px auto;
+	margin: 1px auto 1px auto;
+	overflow: hidden;
 }
 
 .center{

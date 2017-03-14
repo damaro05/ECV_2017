@@ -35,14 +35,14 @@ var canvasDetail = {
 		var objLoader = new THREE.OBJLoader();
 
 		if( mtl ){
-			mtlLoader.load( 'meshes/'+mtl+'.mtl', function( materials ) {
+			mtlLoader.load( '../../meshes/'+mtl+'.mtl', function( materials ) {
 				materials.preload();
 				objLoader.setMaterials( materials );
 			});
 		}
 
 
-		objLoader.load( 'meshes/'+obj+'.obj', function ( object ) {
+		objLoader.load( '../../meshes/'+obj+'.obj', function ( object ) {
 			object.position.set( 0, 0, 0 );
 			this.mesh = object;
 			scene.add( this.mesh );

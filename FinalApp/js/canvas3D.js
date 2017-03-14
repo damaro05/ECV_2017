@@ -400,7 +400,7 @@ var APP = {
 				//Detail systems
 			case 20:
 			//Heart
-				infoFrame.src = "heart.html";
+				infoFrame.src = "infoPages/cardiovascular/heart.html";
 				break;
 			case 21:
 			//Skull

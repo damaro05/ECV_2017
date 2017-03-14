@@ -417,10 +417,20 @@ td{
 
 #information{
 	float: left;
-	min-width: 250px;
-	width: 45%;
-	height: 100%;
-	border-left: 1px solid black;
+	min-width: 248px;
+    width: calc(45% - 2px);
+    height: calc(100% - 2px);
+	border: 1px solid black;
+	border-radius: 15px / 20px 10px 10px 20px;
+
+	background: rgba(46,48,48,1);
+	background: -moz-linear-gradient(top, rgba(46,48,48,1) 0%, rgba(126,128,128,1) 75%, rgba(126,128,128,1) 100%);
+	background: -webkit-gradient(left top, left bottom, color-stop(0%, rgba(46,48,48,1)), color-stop(75%, rgba(126,128,128,1)), color-stop(100%, rgba(126,128,128,1)));
+	background: -webkit-linear-gradient(top, rgba(46,48,48,1) 0%, rgba(126,128,128,1) 75%, rgba(126,128,128,1) 100%);
+	background: -o-linear-gradient(top, rgba(46,48,48,1) 0%, rgba(126,128,128,1) 75%, rgba(126,128,128,1) 100%);
+	background: -ms-linear-gradient(top, rgba(46,48,48,1) 0%, rgba(126,128,128,1) 75%, rgba(126,128,128,1) 100%);
+	background: linear-gradient(to bottom, rgba(46,48,48,1) 0%, rgba(126,128,128,1) 75%, rgba(126,128,128,1) 100%);
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#2e3030', endColorstr='#7e8080', GradientType=0 );
 }
 .infoFrame{
 	width: 100%;
