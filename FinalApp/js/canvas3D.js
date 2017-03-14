@@ -404,14 +404,14 @@ var APP = {
 				break;
 			case 21:
 			//Skull
-				infoFrame.src = "skull.html";
+				infoFrame.src = "infoPages/skeletal/skull.html";
 				break;
 			case 22:
 			//Femur
-				infoFrame.src = "femur.html";
+				infoFrame.src = "infoPages/skeletal/femur.html";
 				break;
 			case 23:
-				infoFrame.src = "hand.html";
+				infoFrame.src = "infoPages/integumentary/hand.html";
 				break;
 			default:
 				console.log( "Error: Invalid element selected" );
